@@ -48,7 +48,8 @@ class Api::V1::StatusesController < Api::BaseController
                                          idempotency: request.headers['Idempotency-Key'],
                                          with_rate_limit: true,
                                          content_type: status_params[:content_type], #'text/markdown'
-                                         local_only: status_params[:local_only])
+                                         local_only: status_params[:local_only],
+                                         quote_id: status_params[:quote_id].blank? ? nil : status_params[:quote_id])
 
     render json: @status, serializer: @status.is_a?(ScheduledStatus) ? REST::ScheduledStatusSerializer : REST::StatusSerializer
   end
@@ -89,6 +90,7 @@ class Api::V1::StatusesController < Api::BaseController
       :scheduled_at,
       :content_type,
       :local_only,
+      :quote_id,
       media_ids: [],
       poll: [
         :multiple,

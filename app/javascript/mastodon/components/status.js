@@ -85,6 +85,7 @@ class Status extends ImmutablePureComponent {
     onHeightChange: PropTypes.func,
     onToggleHidden: PropTypes.func,
     onToggleCollapsed: PropTypes.func,
+    onQuoteToggleHidden: PropTypes.func,
     muted: PropTypes.bool,
     hidden: PropTypes.bool,
     unread: PropTypes.bool,
@@ -98,6 +99,7 @@ class Status extends ImmutablePureComponent {
     scrollKey: PropTypes.string,
     deployPictureInPicture: PropTypes.func,
     usingPiP: PropTypes.bool,
+    contextType: PropTypes.string,
   };
 
   // Avoid checking props that are functions (and whose equality will always
@@ -161,6 +163,15 @@ class Status extends ImmutablePureComponent {
     }
   }
 
+  handleQuoteClick = () => {
+    if (!this.context.router) {
+      return;
+    }
+
+    const { status } = this.props;
+    this.context.router.history.push(`/statuses/${status.getIn(['reblog', 'quote', 'id'], status.getIn(['quote', 'id']))}`);
+  }
+
   handleAccountClick = (e) => {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       const id = e.currentTarget.getAttribute('data-id');
@@ -176,6 +187,10 @@ class Status extends ImmutablePureComponent {
   handleCollapsedToggle = isCollapsed => {
     this.props.onToggleCollapsed(this._properStatus(), isCollapsed);
   }
+
+  handleExpandedQuoteToggle = () => {
+    this.props.onQuoteToggleHidden(this._properStatus());
+  };
 
   renderLoadingMediaGallery () {
     return <div className='media-gallery' style={{ height: '110px' }} />;
@@ -273,11 +288,21 @@ class Status extends ImmutablePureComponent {
     this.node = c;
   }
 
+  _properQuoteStatus () {
+    const { status } = this.props;
+
+    return status.get('quote');
+  }
+
   render () {
     let media = null;
-    let statusAvatar, prepend, rebloggedByText;
+    let statusAvatar, prepend, rebloggedByText, unlistedQuoteText;
 
+<<<<<<< HEAD
     const { intl, hidden, featured, otherAccounts, unread, showThread, scrollKey, usingPiP } = this.props;
+=======
+    const { intl, hidden, featured, otherAccounts, unread, showThread, scrollKey, contextType } = this.props;
+>>>>>>> d955cb792... Add quote feature
 
     let { status, account, ...other } = this.props;
 
@@ -452,6 +477,53 @@ class Status extends ImmutablePureComponent {
 
     const visibilityIcon = visibilityIconInfo[status.get('visibility')];
 
+    let quote = null;
+    if (status.get('quote', null) !== null) {
+      let quote_status = status.get('quote');
+
+      let quote_media = null;
+      if (quote_status.get('media_attachments').size > 0) {
+        if (this.props.muted || quote_status.get('media_attachments').some(item => item.get('type') === 'unknown')) {
+          quote_media = (
+            <AttachmentList
+              compact
+              media={quote_status.get('media_attachments')}
+            />
+          );
+        } else {
+          quote_media = (
+            <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery} >
+              {Component => <Component media={quote_status.get('media_attachments')} sensitive={quote_status.get('sensitive')} height={110} onOpenMedia={this.props.onOpenMedia} quote />}
+            </Bundle>
+          );
+        }
+      }
+
+      if (quote_status.get('visibility') === 'unlisted' && contextType !== 'home') {
+        unlistedQuoteText = intl.formatMessage({ id: 'status.unlisted_quote', defaultMessage: 'Unlisted quote' });
+        quote = (
+          <div className={classNames('quote-status', `status-${quote_status.get('visibility')}`, { muted: this.props.muted })} data-id={quote_status.get('id')}>
+            <div className={classNames('status__content unlisted-quote', { 'status__content--with-action': this.context.router })}>
+              <strong onClick={this.handleQuoteClick}>{unlistedQuoteText}</strong>
+            </div>
+          </div>
+        );
+      } else {
+        quote = (
+          <div className={classNames('quote-status', `status-${quote_status.get('visibility')}`, { muted: this.props.muted })} data-id={quote_status.get('id')}>
+            <div className='status__info'>
+              <a onClick={this.handleAccountClick} target='_blank' data-id={quote_status.getIn(['account', 'id'])} href={quote_status.getIn(['account', 'url'])} title={quote_status.getIn(['account', 'acct'])} className='status__display-name'>
+                <div className='status__avatar'><Avatar account={quote_status.get('account')} size={18} /></div>
+                <DisplayName account={quote_status.get('account')} />
+              </a>
+            </div>
+            <StatusContent status={quote_status} onClick={this.handleQuoteClick} expanded={!status.get('quote_hidden')} onExpandedToggle={this.handleExpandedQuoteToggle} />
+            {quote_media}
+          </div>
+        );
+      }
+    }
+
     return (
       <HotKeys handlers={handlers}>
         <div className={classNames('status__wrapper', `status__wrapper-${status.get('visibility')}`, { 'status__wrapper-reply': !!status.get('in_reply_to_id'), unread, focusable: !this.props.muted })} tabIndex={this.props.muted ? null : 0} data-featured={featured ? 'true' : null} aria-label={textForScreenReader(intl, status, rebloggedByText)} ref={this.handleRef}>
@@ -477,6 +549,7 @@ class Status extends ImmutablePureComponent {
             <StatusContent status={status} onClick={this.handleClick} expanded={!status.get('hidden')} showThread={showThread} onExpandedToggle={this.handleExpandedToggle} collapsable onCollapsedToggle={this.handleCollapsedToggle} />
 
             {media}
+            {quote}
 
             <StatusActionBar scrollKey={scrollKey} status={status} account={account} {...other} />
           </div>

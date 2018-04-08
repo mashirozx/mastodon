@@ -800,6 +800,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_220312) do
     t.bigint "application_id"
     t.bigint "in_reply_to_account_id"
     t.bigint "poll_id"
+    t.bigint "quote_id"
     t.datetime "deleted_at"
     t.boolean "local_only"
     t.string "content_type"

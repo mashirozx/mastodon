@@ -4,6 +4,7 @@ import Status from '../components/status';
 import { makeGetStatus } from '../selectors';
 import {
   replyCompose,
+  quoteCompose,
   mentionCompose,
   directCompose,
 } from '../actions/compose';
@@ -24,6 +25,8 @@ import {
   hideStatus,
   revealStatus,
   toggleStatusCollapse,
+  hideQuote,
+  revealQuote,
 } from '../actions/statuses';
 import {
   unmuteAccount,
@@ -95,6 +98,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     } else {
       dispatch(openModal('BOOST', { status, onReblog: this.onModalReblog }));
     }
+  },
+
+  onQuote (status, router) {
+    dispatch(quoteCompose(status, router));
   },
 
   onFavourite (status) {
@@ -207,6 +214,14 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onUnblockDomain (domain) {
     dispatch(unblockDomain(domain));
+  },
+  
+  onQuoteToggleHidden (status) {
+    if (status.get('quote_hidden')) {
+      dispatch(revealQuote(status.get('id')));
+    } else {
+      dispatch(hideQuote(status.get('id')));
+    }
   },
 
   deployPictureInPicture (status, type, mediaProps) {
