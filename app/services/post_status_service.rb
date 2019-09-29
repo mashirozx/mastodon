@@ -179,6 +179,7 @@ class PostStatusService < BaseService
       rate_limit: @options[:with_rate_limit],
       local_only: local_only_option(@options[:local_only], @in_reply_to, @account.user&.setting_default_federation),
       content_type: content_type_option(@options[:content_type], @account.user&.setting_default_content_type),
+      quote_id: @options[:quote_id],
     }.compact
   end
 

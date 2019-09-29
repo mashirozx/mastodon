@@ -117,6 +117,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
         conversation: conversation_from_uri(@object['conversation']),
         media_attachment_ids: process_attachments.take(4).map(&:id),
         poll: process_poll,
+        quote: quote_from_url(@object['quoteUrl']),
       }
     end
   end
@@ -516,5 +517,12 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
 
   def poll_lock_options
     { redis: Redis.current, key: "vote:#{replied_to_status.poll_id}:#{@account.id}" }
+  end
+
+  def quote_from_url(url)
+    return nil if url.nil?
+
+    quote = ResolveURLService.new.call(url)
+    status_from_uri(quote.uri) if quote
   end
 end

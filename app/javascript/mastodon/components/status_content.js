@@ -29,6 +29,7 @@ export default class StatusContent extends React.PureComponent {
     onClick: PropTypes.func,
     collapsable: PropTypes.bool,
     onCollapsedToggle: PropTypes.func,
+    quote: PropTypes.bool,
   };
 
   state = {
@@ -46,8 +47,6 @@ export default class StatusContent extends React.PureComponent {
     }
 
     const links = node.querySelectorAll('a');
-    const QuoteUrlFormat = /(?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+\/users\/[\w-_]+(\/statuses\/\w+)/;
-    const quote = node.innerText.match(new RegExp(`\\[(\\w+)\\]\\[${QuoteUrlFormat.source}\\]`));
 
     for (var i = 0; i < links.length; ++i) {
       let link = links[i];
@@ -55,12 +54,6 @@ export default class StatusContent extends React.PureComponent {
         continue;
       }
       link.classList.add('status-link');
-
-      if (quote) {
-        if (link.href.match(QuoteUrlFormat)) {
-          link.addEventListener('click', this.onQuoteClick.bind(this, quote[1]), false);
-        }
-      }
 
       let mention = this.props.status.get('mentions').find(item => link.href === item.get('url'));
 
@@ -135,15 +128,6 @@ export default class StatusContent extends React.PureComponent {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       this.context.router.history.push(`/timelines/tag/${hashtag}`);
-    }
-  }
-
-  onQuoteClick = (statusId, e) => {
-    let statusUrl = `/statuses/${statusId}`;
-
-    if (this.context.router && e.button === 0) {
-      e.preventDefault();
-      this.context.router.history.push(statusUrl);
     }
   }
 
@@ -239,7 +223,7 @@ export default class StatusContent extends React.PureComponent {
   }
 
   render () {
-    const { status } = this.props;
+    const { status, quote } = this.props;
 
     if (status.get('content').length === 0) {
       return null;
@@ -257,7 +241,7 @@ export default class StatusContent extends React.PureComponent {
       })
       return template.content.firstChild.innerHTML
     }
-    
+
     const content = { __html: addHashtagMarkup(status.get('contentHtml')) };
     const spoilerContent = { __html: addHashtagMarkup(status.get('spoilerHtml')) };
 
@@ -277,7 +261,7 @@ export default class StatusContent extends React.PureComponent {
         <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
       </button>
     );
-    
+
     const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Hide translation' /> : <FormattedMessage id='status.show_translation' defaultMessage='Translate toot' />;
 
     const readMoreButton = (
@@ -287,7 +271,7 @@ export default class StatusContent extends React.PureComponent {
     );
 
     const translationContainer = (
-      getLocale().localeData[0].locale !== status.get('language') ? 
+      getLocale().localeData[0].locale !== status.get('language') ?
       <React.Fragment>
         <button
           tabIndex='-1' className={'status__content__show-translation-button'}
@@ -358,7 +342,7 @@ export default class StatusContent extends React.PureComponent {
 
           {!hidden ? translationContainer : null}
 
-          {!hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {!quote && !hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
           {renderViewThread && showThreadButton}
         </div>
@@ -370,7 +354,7 @@ export default class StatusContent extends React.PureComponent {
 
           {translationContainer}
 
-          {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {!quote && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
           {renderViewThread && showThreadButton}
         </div>,
@@ -388,7 +372,7 @@ export default class StatusContent extends React.PureComponent {
 
           {translationContainer}
 
-          {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {!quote && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
           {renderViewThread && showThreadButton}
         </div>

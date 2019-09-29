@@ -458,6 +458,10 @@
         "id": "status.quote"
       },
       {
+        "defaultMessage": "Unlisted quote",
+        "id": "status.unlisted_quote"
+      },
+      {
         "defaultMessage": "Favourite",
         "id": "status.favourite"
       },
