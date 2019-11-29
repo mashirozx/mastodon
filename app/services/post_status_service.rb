@@ -47,6 +47,18 @@ class PostStatusService < BaseService
 
   private
 
+  def status_from_uri(uri)
+    ActivityPub::TagManager.instance.uri_to_resource(uri, Status)
+  end
+
+  def quote_from_url(url)
+    return nil if url.nil?
+    quote = ResolveURLService.new.call(url)
+    status_from_uri(quote.uri) if quote
+  rescue
+    nil
+  end
+
   def preprocess_attributes!
     @sensitive    = (@options[:sensitive].nil? ? @account.user&.setting_default_sensitive : @options[:sensitive]) || @options[:spoiler_text].present?
     @text         = @options.delete(:spoiler_text) if @text.blank? && @options[:spoiler_text].present?
@@ -54,6 +66,10 @@ class PostStatusService < BaseService
     @visibility   = :unlisted if @visibility&.to_sym == :public && @account.silenced?
     @scheduled_at = @options[:scheduled_at]&.to_datetime
     @scheduled_at = nil if scheduled_in_the_past?
+    if @options[:quote_id].nil? && md = @text.match(/QT:\s*\[\s*(https:\/\/.+?)\s*\]/)
+      @options[:quote_id] = quote_from_url(md[1])&.id
+      @text.sub!(/QT:\s*\[.*?\]/, '')
+    end
   rescue ArgumentError
     raise ActiveRecord::RecordInvalid
   end
