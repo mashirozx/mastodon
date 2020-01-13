@@ -338,6 +338,7 @@ class StatusActionBar extends ImmutablePureComponent {
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
         <IconButton className='status__action-bar-button' disabled={anonymousAccess || !publicStatus || localOnly} title={!publicStatus || localOnly ? intl.formatMessage(messages.cannot_quote) : intl.formatMessage(messages.quote)} icon='quote-right' onClick={this.handleQuoteClick} />
         {shareButton}
+        <IconButton className='status__action-bar-button bookmark-icon' active={status.get('bookmarked')} pressed={status.get('bookmarked')} title={intl.formatMessage(status.get('bookmarked') ? messages.removeBookmark : messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} />
 
         <div className='status__action-bar-dropdown'>
           <DropdownMenuContainer
