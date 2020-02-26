@@ -64,9 +64,9 @@
     }
 
     .status.quote-status {
-      border: solid 1px $ui-base-lighter-color;
-      border-radius: 4px;
-      padding: 5px;
+      border: 1px dashed $ui-base-lighter-color;
+      border-radius: 8px;
+      padding: 8px;
       margin-top: 15px;
       cursor: pointer;
       width: 100%;
@@ -75,8 +75,8 @@
         height: 18px;
         width: 18px;
         position: absolute;
-        top: 5px;
-        left: 5px;
+        top: 8px;
+        left: 8px;
 
         & > div {
           width: 18px;
