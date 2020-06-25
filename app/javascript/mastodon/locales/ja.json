@@ -403,6 +403,7 @@
   "status.block": "@{name}さんをブロック",
   "status.bookmark": "ブックマーク",
   "status.cancel_reblog_private": "ブースト解除",
+  "status.cannot_quote": "この投稿は引用できません",
   "status.cannot_reblog": "この投稿はブーストできません",
   "status.copy": "トゥートへのリンクをコピー",
   "status.delete": "削除",
