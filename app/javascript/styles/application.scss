@@ -26,3 +26,21 @@
 @import 'mastodon/dashboard';
 @import 'mastodon/rtl';
 @import 'mastodon/accessibility';
+
+.column .getting-started__trends .trends__item:nth-child(2),
+.column .getting-started__trends .trends__item:nth-child(3),
+.column .getting-started__trends .trends__item:last-child {
+  background: lighten($ui-base-color, 8%);
+}
+
+.column .getting-started__trends h4 {
+  background: $ui-base-color;
+  color: $dark-text-color;
+  padding: 0 20px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: default;
+  border-bottom: 0;
+  // border-bottom: 1px solid #393f4f;
+}

@@ -5,7 +5,7 @@ $white: #ffffff;
 $classic-base-color: #282c37;
 $classic-primary-color: #9baec8;
 $classic-secondary-color: #d9e1e8;
-$classic-highlight-color: #38b208;
+$classic-highlight-color: #d92b2b;
 
 // Differences
 $success-green: lighten(#3c754d, 8%);
@@ -17,7 +17,7 @@ $ui-base-color: $classic-secondary-color !default;
 $ui-base-lighter-color: #b0c0cf;
 $ui-primary-color: #9bcbed;
 $ui-secondary-color: $classic-base-color !default;
-$ui-highlight-color: #38b208;
+$ui-highlight-color: #d92b2b;
 
 $primary-text-color: $black !default;
 $darker-text-color: $classic-base-color !default;
@@ -39,3 +39,6 @@ $account-background-color: $white !default;
 @function lighten($color, $amount) {
   @return hsl(hue($color), saturation($color), lightness($color) - $amount);
 }
+
+@import 'application';
+@import 'mastodon-light/diff';
