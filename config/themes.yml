@@ -1,11 +1,11 @@
 default: styles/application.scss
 mastodon-light: styles/mastodon-light.scss
-dark-red: styles/dark_red.scss
-light-red: styles/light_red.scss
-dark-green: styles/dark_green.scss
-light-green: styles/light_green.scss
-dark-yellow: styles/dark_yellow.scss
-light-yellow: styles/light_yellow.scss
+dark-red: styles/dark-red.scss
+light-red: styles/light-red.scss
+dark-green: styles/dark-green.scss
+light-green: styles/light-green.scss
+dark-yellow: styles/dark-yellow.scss
+light-yellow: styles/light-yellow.scss
 contrast: styles/contrast.scss
 witches-town: styles/witches-town.scss
 sleeping-town: styles/sleeping-town.scss
@@ -14,5 +14,5 @@ new-year: styles/new-year.scss
 nga: styles/nga.scss
 sakura: styles/sakura.scss
 luxury: styles/luxury.scss
-ubuntu-light: styles/ubuntu_light.scss
-ubuntu-terminal: styles/ubuntu_terminal.scss
+ubuntu-light: styles/ubuntu-light.scss
+ubuntu-terminal: styles/ubuntu-terminal.scss

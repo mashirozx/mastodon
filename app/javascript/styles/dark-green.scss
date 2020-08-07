@@ -12,7 +12,7 @@ $red-bookmark: $warning-red;
 $classic-base-color: #282c37;         // Midnight Express
 $classic-primary-color: #9baec8;      // Echo Blue
 $classic-secondary-color: #d9e1e8;    // Pattens Blue
-$classic-highlight-color: #d92b2b;    // Summer Sky
+$classic-highlight-color: #38b208;    // Summer Sky
 
 // Variables for defaults in UI
 $base-shadow-color: $black !default;
@@ -54,3 +54,6 @@ $no-gap-breakpoint: 415px;
 $font-sans-serif: 'mastodon-font-sans-serif' !default;
 $font-display: 'mastodon-font-display' !default;
 $font-monospace: 'mastodon-font-monospace' !default;
+
+@import 'application';
+@import 'contrast/diff';
