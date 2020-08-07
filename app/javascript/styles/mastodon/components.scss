@@ -849,6 +849,7 @@
     color: lighten($ui-highlight-color, 8%);
   }
 
+  .status__content__read-more-button,
   .status__content__spoiler-link {
     background: $action-button-color;
 
@@ -926,21 +927,22 @@
 
 .status__content__read-more-button {
   display: block;
-  font-size: 15px;
-  line-height: 20px;
-  color: lighten($ui-highlight-color, 8%);
-  border: 0;
-  background: transparent;
-  padding: 0;
-  padding-top: 8px;
-  text-decoration: none;
+  // font-size: 15px;
+  // line-height: 20px;
+  // color: lighten($ui-highlight-color, 8%);
+  // border: 0;
+  // background: transparent;
+  // padding: 0;
+  // padding-top: 8px;
+  // text-decoration: none;
 
-  &:hover,
-  &:active {
-    text-decoration: underline;
-  }
+  // &:hover,
+  // &:active {
+  //   text-decoration: underline;
+  // }
 }
 
+.status__content__read-more-button,
 .status__content__spoiler-link {
   display: inline-block;
   border-radius: 2px;
@@ -1052,6 +1054,7 @@
         color: $highlight-text-color;
       }
 
+      a.status__content__read-more-button,
       a.status__content__spoiler-link {
         color: $primary-text-color;
         background: $ui-primary-color;
@@ -1225,6 +1228,7 @@
       margin: -1px 0 0;
     }
 
+    .status__content__read-more-button,
     .status__content__spoiler-link {
       line-height: 24px;
       margin: -1px 0 0;
@@ -1631,6 +1635,7 @@ a.account__display-name {
     opacity: 0.5;
   }
 
+  a.status__content__read-more-button,
   a.status__content__spoiler-link {
     background: $ui-base-lighter-color;
     color: $inverted-text-color;
@@ -4751,6 +4756,7 @@ a.status-card.compact:hover {
     width: 48px;
   }
 
+  .status__content__read-more-button,
   .status__content__spoiler-link {
     color: lighten($secondary-text-color, 8%);
   }
