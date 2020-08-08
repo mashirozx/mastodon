@@ -14,5 +14,32 @@
   text-transform: uppercase;
   cursor: default;
   border-bottom: 0;
-  // border-bottom: 1px solid #393f4f;
+}
+
+//
+.status__content,
+.reply-indicator__content {
+
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  code {
+    font-family: $font-monospace, monospace;
+    background-color: darken($ui-base-color, 8%);
+    border-radius: 3px;
+    font-size: 0.85em;
+    padding: 0.075em 0.4em;
+  }
+
+  del,
+  s {
+    text-decoration: line-through;
+  }
 }

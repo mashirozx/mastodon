@@ -328,6 +328,8 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    kramdown (2.3.0)
+      rexml
     launchy (2.5.0)
       addressable (~> 2.7)
     letter_opener (1.7.0)
@@ -726,6 +728,7 @@ DEPENDENCIES
   json-ld
   json-ld-preloaded (~> 3.1)
   kaminari (~> 1.2)
+  kramdown (~> 2.1)
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.4)
   link_header (~> 0.0)
