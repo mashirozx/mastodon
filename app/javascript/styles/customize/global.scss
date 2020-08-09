@@ -47,7 +47,8 @@
 // hashtag style
 .hashtag.status-link,
 .u-url.status-link {
-  background: rgba(lighten($ui-base-color, 13%), 0.36);
+  background: rgba(darken($ui-base-color, 7%), 0.36);
+  color: $highlight-text-color;
   padding: 0px 5px;
   text-align: center;
   text-decoration: none;
@@ -60,11 +61,10 @@
 
   &:before {
     // you may use your own icon font here
-    color: $highlight-text-color;
     padding-right: 2px;
   }
 
   &:hover {
-    background-color: rgba($action-button-color, 0.36);
+    background-color: rgba(lighten($ui-base-color, 13%), 0.36);
   }
 }
