@@ -66,5 +66,14 @@
 
   &:hover {
     background-color: rgba(lighten($ui-base-color, 13%), 0.36);
+    text-decoration: none;
+
+    span {
+      text-decoration: none;
+    }
+  }
+
+  span {
+    text-decoration: none;
   }
 }
