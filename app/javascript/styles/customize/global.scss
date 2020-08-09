@@ -51,7 +51,7 @@
   color: $highlight-text-color;
   padding: 0px 5px;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none !important;
   display: inline-block;
   border-style: dashed;
   border-color: $highlight-text-color;
@@ -66,14 +66,13 @@
 
   &:hover {
     background-color: rgba(lighten($ui-base-color, 13%), 0.36);
-    text-decoration: none;
-
-    span {
-      text-decoration: none;
-    }
   }
 
   span {
-    text-decoration: none;
+    text-decoration: none !important;
   }
+}
+
+.muted .status__content a {
+  border-color: $dark-text-color;
 }
