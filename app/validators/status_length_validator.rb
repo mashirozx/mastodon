@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StatusLengthValidator < ActiveModel::Validator
-  MAX_CHARS = 1024
+  MAX_CHARS = 2048
 
   def validate(status)
     return unless status.local? && !status.reblog?
