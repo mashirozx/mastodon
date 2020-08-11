@@ -848,7 +848,8 @@
   a.unhandled-link {
     color: lighten($ui-highlight-color, 8%);
   }
-
+  
+  +.status__content__read-more-button,
   .status__content__read-more-button,
   .status__content__spoiler-link {
     background: $action-button-color;
@@ -927,6 +928,7 @@
 
 .status__content__read-more-button {
   display: block;
+  margin-top: 8px;
   // font-size: 15px;
   // line-height: 20px;
   // color: lighten($ui-highlight-color, 8%);
@@ -1228,6 +1230,7 @@
       margin: -1px 0 0;
     }
 
+    +.status__content__read-more-button,
     .status__content__read-more-button,
     .status__content__spoiler-link {
       line-height: 24px;
@@ -2562,7 +2565,7 @@ a.account__display-name {
     width: 85%;
     height: 100%;
     pointer-events: none;
-    user-drag: none;
+    // user-drag: none;
     user-select: none;
   }
 
@@ -6960,7 +6963,7 @@ noscript {
         height: 100%;
         min-width: auto;
         min-height: auto;
-        vertical-align: bottom;
+        // vertical-align: bottom;
         object-fit: contain;
       }
     }

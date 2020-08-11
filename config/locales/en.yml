@@ -1255,15 +1255,23 @@ en:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
-    contrast: Mastodon (High contrast)
-    default: Mastodon (Dark-Blue)
+    default: Mastodon (Default)
+    contrast: Mastodon (Dark-Blue)
     mastodon-light: Mastodon (Light-Blue)
+    dark-purple: Mastodon (Dark-Purple)
+    light-purple: Mastodon (Light-Purple)
     dark-red: Mastodon (Dark-Red)
     light-red: Mastodon (Light-Red)
     dark-green: Mastodon (Dark-Green)
     light-green: Mastodon (Light-Green)
+    dark-cyan: Mastodon (Dark-Cyan)
+    light-cyan: Mastodon (Light-Cyan)
     dark-yellow: Mastodon (Dark-Yellow)
     light-yellow: Mastodon (Light-Yellow)
+    dark-orange: Mastodon (Dark-Orange)
+    light-orange: Mastodon (Light-Orange)
+    dark-pink: Mastodon (Dark-Pink)
+    light-pink: Mastodon (Light-Pink)
     ubuntu-light: Ubuntu Orange
     ubuntu-terminal: Ubuntu Terminal
     forest: Forest
