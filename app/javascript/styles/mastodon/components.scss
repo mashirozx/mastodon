@@ -2565,7 +2565,7 @@ a.account__display-name {
     width: 85%;
     height: 100%;
     pointer-events: none;
-    user-drag: none;
+    // user-drag: none;
     user-select: none;
   }
 
@@ -6963,7 +6963,7 @@ noscript {
         height: 100%;
         min-width: auto;
         min-height: auto;
-        vertical-align: bottom;
+        // vertical-align: bottom;
         object-fit: contain;
       }
     }

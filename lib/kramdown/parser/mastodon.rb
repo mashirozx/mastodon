@@ -4,12 +4,12 @@ require 'kramdown/parser'
 
 module Kramdown
   module Parser
-    class Mastodon < Kramdown
+    class Mastodon < GFM
       def initialize(source, options)
         super
 
-        @block_parsers = %i(blank_line paragraph)
-        @span_parsers  = %i(no_intra_emphasis codespan immediate_line_break escaped_chars)
+        # @block_parsers = %i(blank_line paragraph)
+        # @span_parsers  = %i(no_intra_emphasis codespan immediate_line_break escaped_chars)
       end
 
       def parse_immediate_line_break

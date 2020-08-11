@@ -35,9 +35,18 @@ class Formatter
       linkable_accounts: status.active_mentions.map(&:account) + [status.account],
       custom_emojis: options[:custom_emojify] ? status.emojis : nil,
       autoplay: options[:autoplay],
+      syntax_highlighter: 'rouge',
+      syntax_highlighter_opts: {
+        guess_lang: true,
+        # line_numbers: true, # useless!
+        # inline_theme: 'base16.light' # do not use this!
+      }
     }
 
-    Kramdown::Document.new(raw_content, formatter_options).to_mastodon.delete("\n").html_safe # rubocop:disable Rails/OutputSafety
+    html = Kramdown::Document.new(raw_content, formatter_options).to_mastodon
+    # html = html.gsub(/<code( class=".|\n*")>(.|\n)*?<\/code>/m) { $~[0].gsub(/[\r\n]/, '<br>') }
+    # html = html.gsub(/<img.*?src="(.*?)".*?\/?>/m) { $~[0].gsub(/(.*?)/, "https://images.weserv.nl/?url=#{$1}") }
+    html = html.delete("\n").html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def reformat(html)
