@@ -1,9 +1,9 @@
 pre.highlight {
-  white-space: nowrap;
+  white-space: pre;
   overflow-x: auto;
   margin-bottom: 20px;
   padding: 8px;
-  // border-radius: 4px;
+  border-radius: 4px;
 
   >code {
     background-color: $highlight-background;
