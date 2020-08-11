@@ -30,6 +30,4 @@
 @import 'customize/global';
 @import 'customize/markdown';
 
-// TODO base is pre > code only!
-@import 'customize/syntax_highlight/themes/tomorrow';
-@import 'customize/syntax_highlight/rouge_base';
+@import 'customize/highlight/themes/tomorrow-night-eighties';
