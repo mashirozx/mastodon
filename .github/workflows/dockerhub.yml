@@ -20,3 +20,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: mashirozx/mastodon
           tags: alpha
+          snapshot: true
