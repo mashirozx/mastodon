@@ -1,9 +1,16 @@
 .status__content,
 .reply-indicator__content {
 
+  p {
+    line-height: 26px;
+  }
+
   blockquote {
     margin-bottom: 20px;
-    white-space: pre-wrap;
+    padding-left: 10px;
+    border-left: 3px solid $darker-text-color;
+    color: $darker-text-color;
+    white-space: nowrap;
 
     &:last-child {
       margin-bottom: 0;
@@ -12,12 +19,6 @@
 
   pre {
     padding: 4px;
-  }
-
-  blockquote {
-    padding-left: 10px;
-    border-left: 3px solid $darker-text-color;
-    color: $darker-text-color;
   }
 
   strong,
@@ -52,33 +53,51 @@
   h2,
   h3,
   h4,
-  h5 {
+  h5,
+  h6 {
     margin-bottom: 20px;
+    font-weight: 600;
   }
 
-  h1::before {
-    content: '# ';
+  h1 {
+    &::before {
+      content: '# ';
+    }
   }
 
-  h2::before {
-    content: '## ';
+  h2 {
+    &::before {
+      content: '## ';
+    }
   }
 
-  h3::before {
-    content: '### ';
+  h3 {
+    &::before {
+      content: '### ';
+    }
   }
 
-  h4::before {
-    content: '#### ';
+  h4 {
+    &::before {
+      content: '#### ';
+    }
   }
 
-  h5::before {
-    content: '##### ';
+  h5 {
+    &::before {
+      content: '##### ';
+    }
+  }
+
+  h6 {
+    &::before {
+      content: '###### ';
+    }
   }
 
   ul,
   ol {
-    margin-left: 1em;
+    margin-left: 2em;
     margin-bottom: 20px;
   }
 
@@ -90,12 +109,17 @@
     list-style-type: decimal;
   }
 
+  .poll ul {
+    margin: 0;
+    list-style: none;
+  }
+
   table {
     overflow-x: auto;
     display: block;
   }
 
-  img{
+  img {
     max-width: 100%;
   }
 }

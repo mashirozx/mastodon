@@ -16,9 +16,9 @@
   border-bottom: 0;
 }
 
-// hashtag style
-.hashtag.status-link,
-.u-url.status-link {
+// hashtag style (.status-link removed)
+.hashtag,
+.u-url {
   background: rgba(darken($ui-base-color, 7%), 0.36);
   color: $highlight-text-color;
   padding: 0px 5px;
