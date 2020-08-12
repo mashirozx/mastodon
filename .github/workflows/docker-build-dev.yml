@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 🔍 Checkout code
         uses: actions/checkout@v2
     
       - name: ⚓ Build and push Docker images
@@ -19,5 +19,4 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: mashirozx/mastodon
-          tags: alpha
-          snapshot: true
+          # tags: alpha

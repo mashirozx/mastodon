@@ -52,33 +52,51 @@
   h2,
   h3,
   h4,
-  h5 {
+  h5,
+  h6 {
     margin-bottom: 20px;
+    font-weight: 600;
   }
 
-  h1::before {
-    content: '# ';
+  h1 {
+    &::before {
+      content: '# ';
+    }
   }
 
-  h2::before {
-    content: '## ';
+  h2 {
+    &::before {
+      content: '## ';
+    }
   }
 
-  h3::before {
-    content: '### ';
+  h3 {
+    &::before {
+      content: '### ';
+    }
   }
 
-  h4::before {
-    content: '#### ';
+  h4 {
+    &::before {
+      content: '#### ';
+    }
   }
 
-  h5::before {
-    content: '##### ';
+  h5 {
+    &::before {
+      content: '##### ';
+    }
+  }
+
+  h6 {
+    &::before {
+      content: '###### ';
+    }
   }
 
   ul,
   ol {
-    margin-left: 1em;
+    margin-left: 2em;
     margin-bottom: 20px;
   }
 
@@ -90,12 +108,17 @@
     list-style-type: decimal;
   }
 
+  .poll ul {
+    margin: 0;
+    list-style: none;
+  }
+
   table {
     overflow-x: auto;
     display: block;
   }
 
-  img{
+  img {
     max-width: 100%;
   }
 }
