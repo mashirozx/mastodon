@@ -1,9 +1,16 @@
 .status__content,
 .reply-indicator__content {
 
+  p {
+    line-height: 26px;
+  }
+
   blockquote {
     margin-bottom: 20px;
-    white-space: pre-wrap;
+    padding-left: 10px;
+    border-left: 3px solid $darker-text-color;
+    color: $darker-text-color;
+    white-space: nowrap;
 
     &:last-child {
       margin-bottom: 0;
@@ -12,13 +19,6 @@
 
   pre {
     padding: 4px;
-  }
-
-  blockquote {
-    padding-left: 10px;
-    border-left: 3px solid $darker-text-color;
-    color: $darker-text-color;
-    white-space: nowrap;
   }
 
   strong,
