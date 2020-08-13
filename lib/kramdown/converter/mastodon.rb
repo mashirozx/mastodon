@@ -44,7 +44,7 @@ module Kramdown
         lang = extract_code_language!(attr)
         hl_opts = {}
         highlighted_code = highlight_code(el.value, el.options[:lang] || lang, :block, hl_opts)
-        highlighted_code = highlighted_code.gsub(/[\r\n]/, '<br>')
+        highlighted_code = highlighted_code == nil ? highlighted_code : highlighted_code.gsub(/[\r\n]/, '<br>')
 
         if highlighted_code
           add_syntax_highlighter_to_class_attr(attr, lang || hl_opts[:default_lang])
