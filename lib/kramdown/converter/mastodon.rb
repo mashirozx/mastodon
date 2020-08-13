@@ -33,7 +33,7 @@ module Kramdown
 
         src = el.attr['src']
         unless src.start_with?( media_host, ENV['IMAGE_PROXY_HOST'] || 'https://images.weserv.nl/')
-          src = "#{ENV['IMAGE_PROXY_PATH'] || 'https://images.weserv.nl/?url='}#{src}"
+          src = "#{ENV['IMAGE_PROXY_PATH'] || 'https://images.weserv.nl/?n=-1&il&url='}#{src}"
         end
         el.attr['src'] = src
         "<img#{html_attributes(el.attr)} />"

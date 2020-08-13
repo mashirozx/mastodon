@@ -8,6 +8,10 @@ import classnames from 'classnames';
 import PollContainer from 'mastodon/containers/poll_container';
 import Icon from 'mastodon/components/icon';
 import { autoPlayGif } from 'mastodon/initial_state';
+import { getLocale  } from 'mastodon/locales';
+import axios from 'axios';
+import { parse as htmlPare } from 'node-html-parser';
+import googleLogo from 'images/google_logo.svg';
 
 const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
 
@@ -29,6 +33,9 @@ export default class StatusContent extends React.PureComponent {
 
   state = {
     hidden: true,
+    hideTranslation: true,
+    translation: null,
+    translationStatus: null,
   };
 
   _updateStatusLinks () {
@@ -169,6 +176,48 @@ export default class StatusContent extends React.PureComponent {
     }
   }
 
+  handleTranslationClick = (e) => {
+    e.preventDefault();
+    
+    if (this.state.hideTranslation === true && this.state.translation === null) {
+      const { status } = this.props;
+      const content = status.get('content').length === 0 ? '' : htmlPare(status.get('content')).structuredText;
+
+      let locale = getLocale()['localeData'][0]['locale']
+      if (locale === 'zh') {
+        const domLang = document.documentElement.lang
+        locale = domLang === 'zh-CN' ? 'zh-cn' : 'zh-tw'
+      }
+
+      this.setState({ translationStatus: 'fetching' });
+      axios({
+        url:`/translate/`,
+        method: 'get',
+        params: {
+          text: content === '' ? 'Nothing to translate' : content,
+          to: locale
+        }
+      })
+      .then(res => {
+        console.log(res.data.text);
+        this.setState({ 
+          translation: res.data.text,
+          translationStatus: 'succeed',
+          hideTranslation: false,
+         });
+      })
+      .catch(() => {
+        console.log(error);
+        this.setState({ 
+          translationStatus: 'failed',
+          hideTranslation: true,
+         });
+      })
+    } else {
+      this.setState({ hideTranslation: !this.state.hideTranslation });
+    }
+  }
+
   setRef = (c) => {
     this.node = c;
   }
@@ -202,11 +251,40 @@ export default class StatusContent extends React.PureComponent {
         <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
       </button>
     );
+    
+    const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Translate toot' /> : <FormattedMessage id='status.show_translation' defaultMessage='Hide translation' />;
 
     const readMoreButton = (
       <button className='status__content__read-more-button' onClick={this.props.onClick} key='read-more'>
         <FormattedMessage id='status.read_more' defaultMessage='Read more' /><Icon id='angle-right' fixedWidth />
       </button>
+    );
+
+    const translationContainer = (
+      true ? 
+        <React.Fragment>
+          <button tabIndex='-1' className={`status__content__show-translation-button`} onClick={this.handleTranslationClick.bind(this)}>{toggleTranslation}</button>
+
+          {/* error message */}
+          <div className='translation-content__wrapper'>
+            <section className={`translation-content__failed ${this.state.translationStatus === 'failed' ? 'display' : 'hidden'}`}>
+              <p><FormattedMessage id='status.translation_failed' defaultMessage='Fetch translation failed' /></p>
+            </section>
+            <section className={`translation-content__loading ${this.state.translationStatus === 'fetching'? 'display' : 'hidden'}`}>
+              <div className='spinner'><div></div><div></div><div></div><div></div></div>
+              {/* <p>Fetching translation, please wait</p> */}
+            </section>
+            <section className={`translation-content__succeed ${this.state.translationStatus === 'succeed' && !this.state.hideTranslation ? 'display' : 'hidden'}`}>
+              <p className='translation-content__powered-by'>
+                <FormattedMessage id='status.translation_by' defaultMessage='Translation powered by {google}' 
+                values={{
+                  google: <a href='https://translate.google.com/' target='_blank'><img alt='Google' draggable='false' src={googleLogo} /></a>
+                }}  />
+              </p>
+              <p className='translation-content'>{this.state.translation}</p>
+            </section>
+          </div>
+        </React.Fragment> : null
     );
 
     if (status.get('spoiler_text').length > 0) {
@@ -236,6 +314,8 @@ export default class StatusContent extends React.PureComponent {
 
           <div tabIndex={!hidden ? 0 : null} className={`status__content__text ${!hidden ? 'status__content__text--visible' : ''}`} style={directionStyle} dangerouslySetInnerHTML={content} />
 
+          {!hidden ? translationContainer : null}
+
           {!hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
           {renderViewThread && showThreadButton}
@@ -245,6 +325,8 @@ export default class StatusContent extends React.PureComponent {
       const output = [
         <div className={classNames} ref={this.setRef} tabIndex='0' style={directionStyle} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} key='status-content'>
           <div className='status__content__text status__content__text--visible' style={directionStyle} dangerouslySetInnerHTML={content} />
+
+          {translationContainer}
 
           {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
@@ -261,6 +343,8 @@ export default class StatusContent extends React.PureComponent {
       return (
         <div className={classNames} ref={this.setRef} tabIndex='0' style={directionStyle}>
           <div className='status__content__text status__content__text--visible' style={directionStyle} dangerouslySetInnerHTML={content} />
+
+          {translationContainer}
 
           {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
