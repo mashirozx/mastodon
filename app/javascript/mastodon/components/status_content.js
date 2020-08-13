@@ -206,7 +206,7 @@ export default class StatusContent extends React.PureComponent {
           hideTranslation: false,
          });
       })
-      .catch(() => {
+      .catch((error) => {
         console.log(error);
         this.setState({ 
           translationStatus: 'failed',
@@ -263,7 +263,7 @@ export default class StatusContent extends React.PureComponent {
     const translationContainer = (
       true ? 
         <React.Fragment>
-          <button tabIndex='-1' className={`status__content__show-translation-button`} onClick={this.handleTranslationClick.bind(this)}>{toggleTranslation}</button>
+          <button tabIndex='-1' className={`status__content__show-translation-button`} onClick={this.handleTranslationClick.bind(this)}>{toggleTranslation} <Icon id='language ' fixedWidth /></button>
 
           {/* error message */}
           <div className='translation-content__wrapper'>
