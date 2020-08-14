@@ -192,8 +192,8 @@ export default class StatusContent extends React.PureComponent {
       this.setState({ translationStatus: 'fetching' });
       axios({
         url:`/translate/`,
-        method: 'get',
-        params: {
+        method: 'post',
+        data: {
           text: content === '' ? 'Nothing to translate' : content,
           to: locale
         }
@@ -278,7 +278,7 @@ export default class StatusContent extends React.PureComponent {
               <p className='translation-content__powered-by'>
                 <FormattedMessage id='status.translation_by' defaultMessage='Translation powered by {google}' 
                 values={{
-                  google: <a href='https://translate.google.com/' target='_blank'><img alt='Google' draggable='false' src={googleLogo} /></a>
+                  google: <img alt='Google' draggable='false' src={googleLogo} />
                 }}  />
               </p>
               <p className='translation-content'>{this.state.translation}</p>

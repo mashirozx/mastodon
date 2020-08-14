@@ -18,7 +18,7 @@
 
 // hashtag style (.status-link removed)
 .hashtag,
-.u-url:not(.detailed-status__display-name):not(.detailed-status__datetime):not(.status__relative-time) {
+.u-url :not(.detailed-status__display-name):not(.detailed-status__datetime):not(.status__relative-time):not(.status__display-name) {
   background: rgba(darken($ui-base-color, 7%), 0.36);
   color: $highlight-text-color;
   padding: 0px 5px;
@@ -51,11 +51,15 @@
 
 // translation 
 .status__content__show-translation-button {
-  margin-top: 5px;
+  margin-top: 8px !important;
+
+  i {
+    font-style: normal !important;
+  }
 }
 
 .translation-content__wrapper {
-  margin-top: 5px;
+  margin-top: 8px;
 
   .translation-content__failed,
   .translation-content__loading,
