@@ -19,8 +19,7 @@
 // hashtag style (.status-link removed)
 // not work: .u-url:not(.detailed-status__display-name):not(.detailed-status__datetime):not(.status__relative-time):not(.status__display-name)
 .hashtag,
-.u-url.status-link,
-.status__content a {
+.u-url.status-link:not(.unhandled-link) {
   background: rgba(darken($ui-base-color, 7%), 0.36);
   color: $highlight-text-color;
   padding: 0px 5px;
