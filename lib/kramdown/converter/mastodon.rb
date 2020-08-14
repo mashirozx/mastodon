@@ -33,7 +33,7 @@ module Kramdown
 
         src = el.attr['src']
         unless src.start_with?( media_host, ENV['IMAGE_PROXY_HOST'] || 'https://images.weserv.nl/')
-          src = "#{ENV['IMAGE_PROXY_PATH'] || 'https://images.weserv.nl/?url='}#{src}"
+          src = "#{ENV['IMAGE_PROXY_PATH'] || 'https://images.weserv.nl/?n=-1&il&url='}#{src}"
         end
         el.attr['src'] = src
         "<img#{html_attributes(el.attr)} />"
@@ -44,7 +44,7 @@ module Kramdown
         lang = extract_code_language!(attr)
         hl_opts = {}
         highlighted_code = highlight_code(el.value, el.options[:lang] || lang, :block, hl_opts)
-        highlighted_code = highlighted_code.gsub(/[\r\n]/, '<br>')
+        highlighted_code = highlighted_code == nil ? highlighted_code : highlighted_code.gsub(/[\r\n]/, '<br>')
 
         if highlighted_code
           add_syntax_highlighter_to_class_attr(attr, lang || hl_opts[:default_lang])

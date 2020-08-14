@@ -8,7 +8,7 @@
   blockquote {
     margin-bottom: 20px;
     padding-left: 10px;
-    border-left: 3px solid $darker-text-color;
+    border-left: 3px solid $ui-base-lighter-color;
     color: $darker-text-color;
     white-space: nowrap;
 
@@ -36,6 +36,14 @@
     text-align: sub;
   }
 
+  hr {
+    height: .25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: $ui-base-lighter-color;
+    border: 0;
+  }
+
   code {
     font-family: $font-monospace, monospace;
     background-color: darken($ui-base-color, 8%);
@@ -55,8 +63,12 @@
   h4,
   h5,
   h6 {
-    margin-bottom: 20px;
+    line-height: 1.5em;
+    font-size: 1.5em;
     font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: .3em;
+    border-bottom: 1px solid $ui-base-lighter-color;
   }
 
   h1 {

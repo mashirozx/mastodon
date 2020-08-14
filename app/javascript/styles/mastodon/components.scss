@@ -849,6 +849,7 @@
     color: lighten($ui-highlight-color, 8%);
   }
   
+  .status__content__show-translation-button,
   +.status__content__read-more-button,
   .status__content__read-more-button,
   .status__content__spoiler-link {
@@ -926,6 +927,7 @@
   max-height: 20px * 15; // 15 lines is roughly above 500 characters
 }
 
+.status__content__show-translation-button,
 .status__content__read-more-button {
   display: block;
   margin-top: 8px;
@@ -944,6 +946,7 @@
   // }
 }
 
+.status__content__show-translation-button,
 .status__content__read-more-button,
 .status__content__spoiler-link {
   display: inline-block;
@@ -1056,7 +1059,7 @@
         color: $highlight-text-color;
       }
 
-      a.status__content__read-more-button,
+      // a.status__content__read-more-button,
       a.status__content__spoiler-link {
         color: $primary-text-color;
         background: $ui-primary-color;
@@ -1230,6 +1233,7 @@
       margin: -1px 0 0;
     }
 
+    .status__content__show-translation-button,
     +.status__content__read-more-button,
     .status__content__read-more-button,
     .status__content__spoiler-link {
@@ -1638,7 +1642,7 @@ a.account__display-name {
     opacity: 0.5;
   }
 
-  a.status__content__read-more-button,
+  // a.status__content__read-more-button,
   a.status__content__spoiler-link {
     background: $ui-base-lighter-color;
     color: $inverted-text-color;
@@ -4759,6 +4763,7 @@ a.status-card.compact:hover {
     width: 48px;
   }
 
+  .status__content__show-translation-button,
   .status__content__read-more-button,
   .status__content__spoiler-link {
     color: lighten($secondary-text-color, 8%);
