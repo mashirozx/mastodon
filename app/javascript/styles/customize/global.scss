@@ -17,8 +17,10 @@
 }
 
 // hashtag style (.status-link removed)
+// not work: .u-url:not(.detailed-status__display-name):not(.detailed-status__datetime):not(.status__relative-time):not(.status__display-name)
 .hashtag,
-.u-url :not(.detailed-status__display-name):not(.detailed-status__datetime):not(.status__relative-time):not(.status__display-name) {
+.u-url.status-link,
+.status__content a {
   background: rgba(darken($ui-base-color, 7%), 0.36);
   color: $highlight-text-color;
   padding: 0px 5px;
@@ -102,10 +104,10 @@
         width: 64px;
         height: 64px;
         margin: 8px;
-        border: 8px solid $darker-text-color;
+        border: 8px solid $ui-base-lighter-color;
         border-radius: 50%;
         animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: $darker-text-color transparent transparent transparent;
+        border-color: $ui-base-lighter-color transparent transparent transparent;
 
         &:nth-child(1) {
           animation-delay: -0.45s;
