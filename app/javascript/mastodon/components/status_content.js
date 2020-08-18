@@ -178,41 +178,40 @@ export default class StatusContent extends React.PureComponent {
 
   handleTranslationClick = (e) => {
     e.preventDefault();
-    
+    const translationServiceEndpoint = '/translate/';
+
     if (this.state.hideTranslation === true && this.state.translation === null) {
       const { status } = this.props;
       const content = status.get('content').length === 0 ? '' : htmlPare(status.get('content')).structuredText;
 
-      let locale = getLocale()['localeData'][0]['locale']
+      let locale = getLocale().localeData[0].locale;
       if (locale === 'zh') {
-        const domLang = document.documentElement.lang
-        locale = domLang === 'zh-CN' ? 'zh-cn' : 'zh-tw'
+        const domLang = document.documentElement.lang;
+        locale = domLang === 'zh-CN' ? 'zh-cn' : 'zh-tw';
       }
 
       this.setState({ translationStatus: 'fetching' });
       axios({
-        url:`/translate/`,
+        url: translationServiceEndpoint,
         method: 'post',
         data: {
           text: content === '' ? 'Nothing to translate' : content,
-          to: locale
-        }
+          to: locale,
+        },
       })
-      .then(res => {
-        console.log(res.data.text);
-        this.setState({ 
-          translation: res.data.text,
-          translationStatus: 'succeed',
-          hideTranslation: false,
-         });
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ 
-          translationStatus: 'failed',
-          hideTranslation: true,
-         });
-      })
+        .then(res => {
+          this.setState({
+            translation: res.data.text,
+            translationStatus: 'succeed',
+            hideTranslation: false,
+          });
+        })
+        .catch(() => {
+          this.setState({
+            translationStatus: 'failed',
+            hideTranslation: true,
+          });
+        });
     } else {
       this.setState({ hideTranslation: !this.state.hideTranslation });
     }
@@ -251,7 +250,7 @@ export default class StatusContent extends React.PureComponent {
         <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
       </button>
     );
-    
+
     const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Translate toot' /> : <FormattedMessage id='status.show_translation' defaultMessage='Hide translation' />;
 
     const readMoreButton = (
@@ -261,30 +260,45 @@ export default class StatusContent extends React.PureComponent {
     );
 
     const translationContainer = (
-      true ? 
-        <React.Fragment>
-          <button tabIndex='-1' className={`status__content__show-translation-button`} onClick={this.handleTranslationClick.bind(this)}>{toggleTranslation} <Icon id='language ' fixedWidth /></button>
+      (<React.Fragment>
+        <button
+          tabIndex='-1' className={'status__content__show-translation-button'}
+          onClick={this.handleTranslationClick.bind(this)}
+        >{toggleTranslation}</button>
 
-          {/* error message */}
-          <div className='translation-content__wrapper'>
-            <section className={`translation-content__failed ${this.state.translationStatus === 'failed' ? 'display' : 'hidden'}`}>
-              <p><FormattedMessage id='status.translation_failed' defaultMessage='Fetch translation failed' /></p>
-            </section>
-            <section className={`translation-content__loading ${this.state.translationStatus === 'fetching'? 'display' : 'hidden'}`}>
-              <div className='spinner'><div></div><div></div><div></div><div></div></div>
-              {/* <p>Fetching translation, please wait</p> */}
-            </section>
-            <section className={`translation-content__succeed ${this.state.translationStatus === 'succeed' && !this.state.hideTranslation ? 'display' : 'hidden'}`}>
-              <p className='translation-content__powered-by'>
-                <FormattedMessage id='status.translation_by' defaultMessage='Translation powered by {google}' 
+        {/* error message */}
+        <div className='translation-content__wrapper'>
+          <section
+            className={`translation-content__failed ${this.state.translationStatus === 'failed' ? 'display' : 'hidden'}`}
+          >
+            <p><FormattedMessage id='status.translation_failed' defaultMessage='Fetch translation failed' /></p>
+          </section>
+          <section
+            className={`translation-content__loading ${this.state.translationStatus === 'fetching' ? 'display' : 'hidden'}`}
+          >
+            <div className='spinner'>
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            {/* <p>Fetching translation, please wait</p> */}
+          </section>
+          <section
+            className={`translation-content__succeed ${this.state.translationStatus === 'succeed' && !this.state.hideTranslation ? 'display' : 'hidden'}`}
+          >
+            <p className='translation-content__powered-by'>
+              <FormattedMessage
+                id='status.translation_by' defaultMessage='Translation powered by {google}'
                 values={{
-                  google: <img alt='Google' draggable='false' src={googleLogo} />
-                }}  />
-              </p>
-              <p className='translation-content'>{this.state.translation}</p>
-            </section>
-          </div>
-        </React.Fragment> : null
+                  google: <img alt='Google' draggable='false' src={googleLogo} />,
+                }}
+              />
+            </p>
+            <p className='translation-content'>{this.state.translation}</p>
+          </section>
+        </div>
+      </React.Fragment>)
     );
 
     if (status.get('spoiler_text').length > 0) {
