@@ -9,9 +9,15 @@ import PollContainer from 'mastodon/containers/poll_container';
 import Icon from 'mastodon/components/icon';
 import { autoPlayGif } from 'mastodon/initial_state';
 import { getLocale  } from 'mastodon/locales';
+<<<<<<< HEAD
 import { parse as htmlPare } from 'node-html-parser';
 import googleLogo from 'images/google_logo.svg';
 import api from '../api';
+=======
+import axios from 'axios';
+import { parse as htmlPare } from 'node-html-parser';
+import googleLogo from 'images/google_logo.svg';
+>>>>>>> origin/master
 
 const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
 
@@ -178,12 +184,17 @@ export default class StatusContent extends React.PureComponent {
 
   handleTranslationClick = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     const translationServiceEndpoint = '/translate/';
 
+=======
+    
+>>>>>>> origin/master
     if (this.state.hideTranslation === true && this.state.translation === null) {
       const { status } = this.props;
       const content = status.get('content').length === 0 ? '' : htmlPare(status.get('content')).structuredText;
 
+<<<<<<< HEAD
       let locale = getLocale().localeData[0].locale;
       if (locale === 'zh') {
         const domLang = document.documentElement.lang;
@@ -212,6 +223,38 @@ export default class StatusContent extends React.PureComponent {
             hideTranslation: true,
           });
         });
+=======
+      let locale = getLocale()['localeData'][0]['locale']
+      if (locale === 'zh') {
+        const domLang = document.documentElement.lang
+        locale = domLang === 'zh-CN' ? 'zh-cn' : 'zh-tw'
+      }
+
+      this.setState({ translationStatus: 'fetching' });
+      axios({
+        url:`/translate/`,
+        method: 'post',
+        data: {
+          text: content === '' ? 'Nothing to translate' : content,
+          to: locale
+        }
+      })
+      .then(res => {
+        console.log(res.data.text);
+        this.setState({ 
+          translation: res.data.text,
+          translationStatus: 'succeed',
+          hideTranslation: false,
+         });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ 
+          translationStatus: 'failed',
+          hideTranslation: true,
+         });
+      })
+>>>>>>> origin/master
     } else {
       this.setState({ hideTranslation: !this.state.hideTranslation });
     }
@@ -250,6 +293,8 @@ export default class StatusContent extends React.PureComponent {
         <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
       </button>
     );
+    
+    const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Translate toot' /> : <FormattedMessage id='status.show_translation' defaultMessage='Hide translation' />;
 
     const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Translate toot' /> : <FormattedMessage id='status.show_translation' defaultMessage='Hide translation' />;
 
