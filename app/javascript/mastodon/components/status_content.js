@@ -266,7 +266,7 @@ export default class StatusContent extends React.PureComponent {
         <button
           tabIndex='-1' className={'status__content__show-translation-button'}
           onClick={this.handleTranslationClick.bind(this)}
-        >{toggleTranslation}</button>
+        >{toggleTranslation} <Icon id='language ' fixedWidth /></button>
 
         {/* error message */}
         <div className='translation-content__wrapper'>
