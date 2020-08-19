@@ -260,7 +260,7 @@ export default class StatusContent extends React.PureComponent {
     );
 
     const translationContainer = (
-      (<React.Fragment>
+      <React.Fragment>
         <button
           tabIndex='-1' className={'status__content__show-translation-button'}
           onClick={this.handleTranslationClick.bind(this)}
@@ -298,7 +298,7 @@ export default class StatusContent extends React.PureComponent {
             <p className='translation-content'>{this.state.translation}</p>
           </section>
         </div>
-      </React.Fragment>)
+      </React.Fragment>
     );
 
     if (status.get('spoiler_text').length > 0) {
