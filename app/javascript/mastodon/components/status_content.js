@@ -9,9 +9,9 @@ import PollContainer from 'mastodon/containers/poll_container';
 import Icon from 'mastodon/components/icon';
 import { autoPlayGif } from 'mastodon/initial_state';
 import { getLocale  } from 'mastodon/locales';
-import axios from 'axios';
 import { parse as htmlPare } from 'node-html-parser';
 import googleLogo from 'images/google_logo.svg';
+import api from '../api';
 
 const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
 
@@ -191,14 +191,14 @@ export default class StatusContent extends React.PureComponent {
       }
 
       this.setState({ translationStatus: 'fetching' });
-      axios({
-        url: translationServiceEndpoint,
-        method: 'post',
-        data: {
-          text: content === '' ? 'Nothing to translate' : content,
-          to: locale,
-        },
-      })
+      api().post(
+        translationServiceEndpoint,
+        {
+          data: {
+            text: content === '' ? 'Nothing to translate' : content,
+            to: locale,
+          },
+        })
         .then(res => {
           this.setState({
             translation: res.data.text,

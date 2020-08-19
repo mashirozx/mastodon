@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   get '/users/:username', to: redirect('/@%{username}'), constraints: lambda { |req| req.format.nil? || req.format.html? }
   get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
 
+  post '/translate', to: 'translate#create'
+
   resources :accounts, path: 'users', only: [:show], param: :username do
     get :remote_follow,  to: 'remote_follow#new'
     post :remote_follow, to: 'remote_follow#create'
