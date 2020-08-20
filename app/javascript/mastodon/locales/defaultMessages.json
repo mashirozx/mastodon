@@ -510,8 +510,24 @@
         "id": "status.show_thread"
       },
       {
+        "defaultMessage": "Hide translation",
+        "id": "status.hide_translation"
+      },
+      {
+        "defaultMessage": "Translate toot",
+        "id": "status.show_translation"
+      },
+      {
         "defaultMessage": "Read more",
         "id": "status.read_more"
+      },
+      {
+        "defaultMessage": "Fetch translation failed",
+        "id": "status.translation_failed"
+      },
+      {
+        "defaultMessage": "Translation powered by {google}",
+        "id": "status.translation_by"
       },
       {
         "defaultMessage": "Show more",
