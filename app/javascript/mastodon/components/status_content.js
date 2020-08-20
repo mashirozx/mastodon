@@ -251,7 +251,7 @@ export default class StatusContent extends React.PureComponent {
       </button>
     );
     
-    const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Translate toot' /> : <FormattedMessage id='status.show_translation' defaultMessage='Hide translation' />;
+    const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Hide translation' /> : <FormattedMessage id='status.show_translation' defaultMessage='Translate toot' />;
 
     const readMoreButton = (
       <button className='status__content__read-more-button' onClick={this.props.onClick} key='read-more'>
@@ -260,6 +260,7 @@ export default class StatusContent extends React.PureComponent {
     );
 
     const translationContainer = (
+      getLocale().localeData[0].locale !== status.get('language') ? 
       <React.Fragment>
         <button
           tabIndex='-1' className={'status__content__show-translation-button'}
@@ -298,7 +299,7 @@ export default class StatusContent extends React.PureComponent {
             <p className='translation-content'>{this.state.translation}</p>
           </section>
         </div>
-      </React.Fragment>
+      </React.Fragment> : null
     );
 
     if (status.get('spoiler_text').length > 0) {
