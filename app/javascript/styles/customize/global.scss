@@ -1,27 +1,27 @@
 // export theme colors
 :root {
-  --theme-black: $black;
-  --theme-white: $white;
-  --theme-classic-base-color: $classic-base-color;
-  --theme-classic-primary-color: $classic-primary-color;
-  --theme-classic-secondary-color: $classic-secondary-color;
-  --theme-classic-highlight-color: $classic-highlight-color;
-  --theme-success-green: $success-green;
-  --theme-base-overlay-background: $base-overlay-background;
-  --theme-valid-value-color: $valid-value-color;
-  --theme-ui-base-color: $ui-base-color;
-  --theme-ui-base-lighter-color: $ui-base-lighter-color;
-  --theme-ui-primary-color: $ui-primary-color;
-  --theme-ui-secondary-color: $ui-secondary-color;
-  --theme-ui-highlight-color: $ui-highlight-color;
-  --theme-primary-text-color: $primary-text-color;
-  --theme-darker-text-color: $darker-text-color;
-  --theme-dark-text-color: $dark-text-color;
-  --theme-action-button-color: $action-button-color;
-  --theme-inverted-text-color: $inverted-text-color;
-  --theme-lighter-text-color: $lighter-text-color;
-  --theme-light-text-color: $light-text-color;
-  --theme-account-background-color: $account-background-color;
+  --theme-black: #{$black};
+  --theme-white: #{$white};
+  --theme-classic-base-color: #{$classic-base-color};
+  --theme-classic-primary-color: #{$classic-primary-color};
+  --theme-classic-secondary-color: #{$classic-secondary-color};
+  --theme-classic-highlight-color: #{$classic-highlight-color};
+  --theme-success-green: #{$success-green};
+  --theme-base-overlay-background: #{$base-overlay-background};
+  --theme-valid-value-color: #{$valid-value-color};
+  --theme-ui-base-color: #{$ui-base-color};
+  --theme-ui-base-lighter-color: #{$ui-base-lighter-color};
+  --theme-ui-primary-color: #{$ui-primary-color};
+  --theme-ui-secondary-color: #{$ui-secondary-color};
+  --theme-ui-highlight-color: #{$ui-highlight-color};
+  --theme-primary-text-color: #{$primary-text-color};
+  --theme-darker-text-color: #{$darker-text-color};
+  --theme-dark-text-color: #{$dark-text-color};
+  --theme-action-button-color: #{$action-button-color};
+  --theme-inverted-text-color: #{$inverted-text-color};
+  --theme-lighter-text-color: #{$lighter-text-color};
+  --theme-light-text-color: #{$light-text-color};
+  --theme-account-background-color: #{$account-background-color};
 }
 
 // show trands in getting-started bar on in column view
