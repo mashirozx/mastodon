@@ -34,7 +34,26 @@ class SearchService < BaseService
     )
   end
 
+  def perform_fedisearch_status_search!
+    qs = { q: @query, status_only: 1, app_key: ENV.fetch('FEDISEARCH_APP_KEY'), limit: @limit, offset: @offset }.to_query
+    resp = Faraday.get("https://fedisearch.com/search.json?#{qs}")
+    if resp.status == 200
+      results = ActiveSupport::JSON.decode resp.body
+      return [] unless results
+
+      results = results.map do |searched_status|
+        FetchRemoteStatusService.new.call(searched_status['uri'])
+      end.compact || []
+    else
+      results = []
+    end
+    results
+  end
+
   def perform_statuses_search!
+    results = perform_fedisearch_status_search!
+    return results if results.present?
+
     definition = parsed_query.apply(StatusesIndex.filter(term: { searchable_by: @account.id }))
 
     if @options[:account_id].present?
@@ -88,7 +107,7 @@ class SearchService < BaseService
   end
 
   def full_text_searchable?
-    return false unless Chewy.enabled?
+    return false if !Chewy.enabled? && ENV.fetch('FEDISEARCH_APP_KEY') { nil }.blank?
 
     statuses_search? && !@account.nil? && !((@query.start_with?('#') || @query.include?('@')) && !@query.include?(' '))
   end
