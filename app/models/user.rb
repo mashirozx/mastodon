@@ -40,6 +40,7 @@
 #  approved                  :boolean          default(TRUE), not null
 #  sign_in_token             :string
 #  sign_in_token_sent_at     :datetime
+#  webauthn_id               :string
 #
 
 class User < ApplicationRecord
@@ -77,6 +78,7 @@ class User < ApplicationRecord
   has_many :backups, inverse_of: :user
   has_many :invites, inverse_of: :user
   has_many :markers, inverse_of: :user, dependent: :destroy
+  has_many :webauthn_credentials, dependent: :destroy
 
   has_one :invite_request, class_name: 'UserInviteRequest', inverse_of: :user, dependent: :destroy
   accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? }
@@ -197,9 +199,25 @@ class User < ApplicationRecord
     prepare_returning_user!
   end
 
+  def otp_enabled?
+    otp_required_for_login
+  end
+
+  def webauthn_enabled?
+    webauthn_credentials.any?
+  end
+
+  def two_factor_enabled?
+    otp_required_for_login? || webauthn_credentials.any?
+  end
+
   def disable_two_factor!
     self.otp_required_for_login = false
+    self.otp_secret = nil
     otp_backup_codes&.clear
+
+    webauthn_credentials.destroy_all if webauthn_enabled?
+
     save!
   end
 
@@ -235,16 +253,16 @@ class User < ApplicationRecord
     @shows_application ||= settings.show_application
   end
 
+  # rubocop:disable Naming/MethodParameterName
   def token_for_app(a)
     return nil if a.nil? || a.owner != self
-    Doorkeeper::AccessToken
-      .find_or_create_by(application_id: a.id, resource_owner_id: id) do |t|
-
+    Doorkeeper::AccessToken.find_or_create_by(application_id: a.id, resource_owner_id: id) do |t|
       t.scopes = a.scopes
       t.expires_in = Doorkeeper.configuration.access_token_expires_in
       t.use_refresh_token = Doorkeeper.configuration.refresh_token_enabled?
     end
   end
+  # rubocop:enable Naming/MethodParameterName
 
   def activate_session(request)
     session_activations.activate(session_id: SecureRandom.hex,
@@ -395,7 +413,7 @@ class User < ApplicationRecord
   end
 
   def notify_staff_about_pending_account!
-    User.staff.includes(:account).each do |u|
+    User.staff.includes(:account).find_each do |u|
       next unless u.allows_pending_account_emails?
       AdminMailer.new_pending_account(u.account, self).deliver_later
     end
