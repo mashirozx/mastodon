@@ -380,6 +380,7 @@
   "status.filtered": "已过滤",
   "status.hide_translation": "隐藏翻译",
   "status.load_more": "加载更多",
+  "status.local_only": "这条嘟文仅本地用户可见",
   "status.media_hidden": "已隐藏的媒体内容",
   "status.mention": "提及 @{name}",
   "status.more": "更多",
