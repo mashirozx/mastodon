@@ -380,6 +380,7 @@
   "status.filtered": "Filtrada",
   "status.hide_translation": "Hide translation",
   "status.load_more": "Carregar mais",
+  "status.local_only": "Esse post só é visível para outros usuários da sua instância",
   "status.media_hidden": "Media escondida",
   "status.mention": "Mencionar @{name}",
   "status.more": "Mais",
