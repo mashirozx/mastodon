@@ -168,8 +168,16 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "This page could not be displayed correctly. This error is likely caused by a browser add-on or automatic translation tools.",
+        "id": "error.unexpected_crash.explanation_addons"
+      },
+      {
         "defaultMessage": "Due to a bug in our code or a browser compatibility issue, this page could not be displayed correctly.",
         "id": "error.unexpected_crash.explanation"
+      },
+      {
+        "defaultMessage": "Try disabling them and refreshing the page. If that does not help, you may still be able to use Mastodon through a different browser or native app.",
+        "id": "error.unexpected_crash.next_steps_addons"
       },
       {
         "defaultMessage": "Try refreshing the page. If that does not help, you may still be able to use Mastodon through a different browser or native app.",
@@ -656,6 +664,15 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Profile unavailable",
+        "id": "empty_column.account_unavailable"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/account_gallery/index.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Toots",
         "id": "account.posts"
       },
@@ -815,6 +832,14 @@
       {
         "defaultMessage": "Show boosts from @{name}",
         "id": "account.show_reblogs"
+      },
+      {
+        "defaultMessage": "Notify me when @{name} posts",
+        "id": "account.enable_notifications"
+      },
+      {
+        "defaultMessage": "Stop notifying me when @{name} posts",
+        "id": "account.disable_notifications"
       },
       {
         "defaultMessage": "Pinned toots",
@@ -2171,12 +2196,28 @@
         "id": "confirmations.delete_list.confirm"
       },
       {
+        "defaultMessage": "Any followed user",
+        "id": "lists.replies_policy.all_replies"
+      },
+      {
+        "defaultMessage": "No one",
+        "id": "lists.replies_policy.no_replies"
+      },
+      {
+        "defaultMessage": "Members of the list",
+        "id": "lists.replies_policy.list_replies"
+      },
+      {
         "defaultMessage": "Edit list",
         "id": "lists.edit"
       },
       {
         "defaultMessage": "Delete list",
         "id": "lists.delete"
+      },
+      {
+        "defaultMessage": "Show replies to:",
+        "id": "lists.replies_policy.title"
       },
       {
         "defaultMessage": "There is nothing in this list yet. When members of this list post new statuses, they will appear here.",
@@ -2317,6 +2358,10 @@
         "id": "notifications.filter.follows"
       },
       {
+        "defaultMessage": "Updates from people you follow",
+        "id": "notifications.filter.statuses"
+      },
+      {
         "defaultMessage": "All",
         "id": "notifications.filter.all"
       }
@@ -2357,6 +2402,10 @@
       {
         "defaultMessage": "{name} boosted your status",
         "id": "notification.reblog"
+      },
+      {
+        "defaultMessage": "{name} just posted",
+        "id": "notification.status"
       },
       {
         "defaultMessage": "{name} has requested to follow you",
@@ -2835,6 +2884,14 @@
         "id": "upload_form.description"
       },
       {
+        "defaultMessage": "Analyzing picture…",
+        "id": "upload_modal.analyzing_picture"
+      },
+      {
+        "defaultMessage": "Preparing OCR…",
+        "id": "upload_modal.preparing_ocr"
+      },
+      {
         "defaultMessage": "Edit media",
         "id": "upload_modal.edit_media"
       },
@@ -2845,10 +2902,6 @@
       {
         "defaultMessage": "Change thumbnail",
         "id": "upload_form.thumbnail"
-      },
-      {
-        "defaultMessage": "Analyzing picture…",
-        "id": "upload_modal.analyzing_picture"
       },
       {
         "defaultMessage": "Detect text from picture",
