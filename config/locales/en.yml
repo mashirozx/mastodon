@@ -1285,32 +1285,32 @@ en:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
-    default: Mastodon (Default)
     contrast: Mastodon (Dark-Blue)
-    mastodon-light: Mastodon (Light-Blue)
-    dark-purple: Mastodon (Dark-Purple)
-    light-purple: Mastodon (Light-Purple)
-    dark-red: Mastodon (Dark-Red)
-    light-red: Mastodon (Light-Red)
-    dark-green: Mastodon (Dark-Green)
-    light-green: Mastodon (Light-Green)
     dark-cyan: Mastodon (Dark-Cyan)
-    light-cyan: Mastodon (Light-Cyan)
-    dark-yellow: Mastodon (Dark-Yellow)
-    light-yellow: Mastodon (Light-Yellow)
+    dark-green: Mastodon (Dark-Green)
     dark-orange: Mastodon (Dark-Orange)
-    light-orange: Mastodon (Light-Orange)
     dark-pink: Mastodon (Dark-Pink)
+    dark-purple: Mastodon (Dark-Purple)
+    dark-red: Mastodon (Dark-Red)
+    dark-yellow: Mastodon (Dark-Yellow)
+    default: Mastodon (Default)
+    forest: Forest
+    light-cyan: Mastodon (Light-Cyan)
+    light-green: Mastodon (Light-Green)
+    light-orange: Mastodon (Light-Orange)
     light-pink: Mastodon (Light-Pink)
+    light-purple: Mastodon (Light-Purple)
+    light-red: Mastodon (Light-Red)
+    light-yellow: Mastodon (Light-Yellow)
+    luxury: Luxury
+    mastodon-light: Mastodon (Light-Blue)
+    new-year: New Year
+    nga: NGA Style
+    sakura: Sakura
+    sleeping-town: Sleeping Town
     ubuntu-light: Ubuntu Orange
     ubuntu-terminal: Ubuntu Terminal
-    forest: Forest
     witches-town: Witches Town
-    sleeping-town: Sleeping Town
-    nga: NGA Style
-    new-year: New Year
-    sakura: Sakura
-    luxury: Luxury
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
