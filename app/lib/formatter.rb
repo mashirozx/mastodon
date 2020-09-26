@@ -18,8 +18,11 @@ class Formatter
     end
 
     raw_content = status.text
-    raw_content = raw_content + "\n\n" + status.preloadable_poll.options.map { |title| "[ ] #{title}" }.join("\n") if options[:inline_poll_options] && status.preloadable_poll
-    raw_content = "RT @#{prepend_reblog} #{raw_content}" if prepend_reblog
+    if options[:inline_poll_options] && status.preloadable_poll
+      raw_content = raw_content + "\n\n" + status.preloadable_poll.options.map { |title| "[ ] #{title}" }.join("\n")
+    end
+    # raw_content = raw_content + "\n\n" + status.preloadable_poll.options.map { |title| "[ ] #{title}" }.join("\n") if options[:inline_poll_options] && status.preloadable_poll
+    # raw_content = "RT @#{prepend_reblog} #{raw_content}" if prepend_reblog
 
     return '' if raw_content.blank?
 
@@ -43,10 +46,26 @@ class Formatter
       }
     }
 
-    html = Kramdown::Document.new(raw_content, formatter_options).to_mastodon
-    # html = html.gsub(/<code( class=".|\n*")>(.|\n)*?<\/code>/m) { $~[0].gsub(/[\r\n]/, '<br>') }
-    # html = html.gsub(/<img.*?src="(.*?)".*?\/?>/m) { $~[0].gsub(/(.*?)/, "https://images.weserv.nl/?url=#{$1}") }
-    html = html.delete("\n").html_safe # rubocop:disable Rails/OutputSafety
+    case status.content_type
+    when 'text/markdown'
+      raw_content = "RT @#{prepend_reblog} #{raw_content}" if prepend_reblog
+      html = Kramdown::Document.new(raw_content, formatter_options).to_mastodon
+      # html = html.gsub(/<code( class=".|\n*")>(.|\n)*?<\/code>/m) { $~[0].gsub(/[\r\n]/, '<br>') }
+      # html = html.gsub(/<img.*?src="(.*?)".*?\/?>/m) { $~[0].gsub(/(.*?)/, "https://images.weserv.nl/?url=#{$1}") }
+      html = html.delete("\n").html_safe # rubocop:disable Rails/OutputSafety
+    else
+      linkable_accounts = status.active_mentions.map(&:account)
+      linkable_accounts << status.account
+
+      html = raw_content
+      html = "RT @#{prepend_reblog} #{html}" if prepend_reblog
+      html = encode_and_link_urls(html, linkable_accounts)
+      html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
+      html = simple_format(html, {}, sanitize: false)
+      html = html.delete("\n")
+
+      html.html_safe # rubocop:disable Rails/OutputSafety
+    end
   end
 
   def reformat(html)
