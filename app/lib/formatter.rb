@@ -53,7 +53,7 @@ class Formatter
       # html = html.gsub(/<code( class=".|\n*")>(.|\n)*?<\/code>/m) { $~[0].gsub(/[\r\n]/, '<br>') }
       # html = html.gsub(/<img.*?src="(.*?)".*?\/?>/m) { $~[0].gsub(/(.*?)/, "https://images.weserv.nl/?url=#{$1}") }
       html = html.delete("\n").html_safe # rubocop:disable Rails/OutputSafety
-    else
+    when 'text/plain'
       linkable_accounts = status.active_mentions.map(&:account)
       linkable_accounts << status.account
 
@@ -65,6 +65,8 @@ class Formatter
       html = html.delete("\n")
 
       html.html_safe # rubocop:disable Rails/OutputSafety
+    else
+      html = "<p>#{status.id}</p>"
     end
   end
 
