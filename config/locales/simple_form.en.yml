@@ -134,6 +134,7 @@ en:
         setting_boost_modal: Show confirmation dialog before boosting
         setting_crop_images: Crop images in non-expanded toots to 16x9
         setting_default_federation: Allow my toots to reach other instances by default
+        setting_default_content_type: Default rich content type of toots
         setting_default_language: Posting language
         setting_default_privacy: Posting privacy
         setting_default_sensitive: Always mark media as sensitive

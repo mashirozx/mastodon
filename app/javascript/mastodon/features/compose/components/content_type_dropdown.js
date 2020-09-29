@@ -10,10 +10,8 @@ import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
 
 const messages = defineMessages({
-  plain_short: { id: 'content_type.plain.short', defaultMessage: 'Plain Text' },
-  plain_long: { id: 'content_type.plain.long', defaultMessage: 'xxx' },
-  markdown_short: { id: 'content_type.markdown.short', defaultMessage: 'Markdown' },
-  markdown_long: { id: 'content_type.markdown.long', defaultMessage: 'xxx' },
+  plain: { id: 'content_type.plain.short', defaultMessage: 'Plain Text' },
+  markdown: { id: 'content_type.markdown.short', defaultMessage: 'Markdown' },
   change_content_type: { id: 'content_type.change', defaultMessage: 'Adjust status content type' },
 });
 
@@ -229,8 +227,8 @@ class ContentTypeDropdown extends React.PureComponent {
     const { intl: { formatMessage } } = this.props;
 
     this.options = [
-      { icon: 'file-text', value: 'text/plain', text: formatMessage(messages.plain_short), meta: formatMessage(messages.plain_long) },
-      { icon: 'arrow-circle-down', value: 'text/markdown', text: formatMessage(messages.markdown_short), meta: formatMessage(messages.markdown_long) },
+      { icon: 'file-text', value: 'text/plain', text: formatMessage(messages.plain), meta: null },
+      { icon: 'arrow-circle-down', value: 'text/markdown', text: formatMessage(messages.markdown), meta: null },
     ];
   }
 

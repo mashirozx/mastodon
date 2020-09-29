@@ -1195,6 +1195,9 @@ en:
       public_long: Everyone can see
       unlisted: Unlisted
       unlisted_long: Everyone can see, but not listed on public timelines
+    content_types:
+      text/plain: Plain text
+      text/markdown: Markdown
   stream_entries:
     pinned: Pinned toot
     reblogged: boosted

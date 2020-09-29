@@ -93,6 +93,11 @@ class PostStatusService < BaseService
     local_only
   end
 
+  def content_type_option(content_type, content_type_setting)
+    return content_type_setting if content_type.nil?
+    content_type
+  end
+
   def postprocess_status!
     LinkCrawlWorker.perform_async(@status.id) unless @status.spoiler_text?
     DistributionWorker.perform_async(@status.id)
@@ -173,7 +178,7 @@ class PostStatusService < BaseService
       application: @options[:application],
       rate_limit: @options[:with_rate_limit],
       local_only: local_only_option(@options[:local_only], @in_reply_to, @account.user&.setting_default_federation),
-      content_type: @options[:content_type],
+      content_type: content_type_option(@options[:content_type], @account.user&.setting_default_content_type),
     }.compact
   end
 
