@@ -1161,6 +1161,9 @@ en:
         one: "%{count} video"
         other: "%{count} videos"
     boosted_from_html: Boosted from %{acct_link}
+    content_types:
+      text/markdown: Markdown
+      text/plain: Plain text
     content_warning: 'Content warning: %{warning}'
     disallowed_hashtags:
       one: 'contained a disallowed hashtag: %{tags}'
@@ -1195,9 +1198,6 @@ en:
       public_long: Everyone can see
       unlisted: Unlisted
       unlisted_long: Everyone can see, but not listed on public timelines
-    content_types:
-      text/plain: Plain text
-      text/markdown: Markdown
   stream_entries:
     pinned: Pinned toot
     reblogged: boosted
