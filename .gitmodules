@@ -1,6 +1,0 @@
-[submodule "app/javascript/styles/customize/lib"]
-	path = app/javascript/styles/customize/lib
-	url = git@github.com:mashirozx/fontawesome-5-pro.git
-[submodule "app/javascript/styles/customize/fontawesome-5-pro"]
-	path = app/javascript/styles/customize/fontawesome-5-pro
-	url = git@github.com:mashirozx/fontawesome-5-pro.git
