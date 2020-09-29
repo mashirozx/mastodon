@@ -1114,6 +1114,9 @@ zh-CN:
       video:
         other: "%{count} 段视频"
     boosted_from_html: 转嘟自 %{acct_link}
+    content_types:
+      text/markdown: Markdown
+      text/plain: 纯文本
     content_warning: 内容警告：%{warning}
     disallowed_hashtags:
       other: 包含了这些禁止的话题标签：%{tags}

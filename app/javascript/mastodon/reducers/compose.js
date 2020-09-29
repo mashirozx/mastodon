@@ -28,6 +28,7 @@ import {
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
   COMPOSE_FEDERATION_CHANGE,
+  COMPOSE_CONTENT_TYPE_CHANGE,
   COMPOSE_COMPOSING_CHANGE,
   COMPOSE_EMOJI_INSERT,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
@@ -56,6 +57,7 @@ const initialState = ImmutableMap({
   spoiler_text: '',
   privacy: null,
   federation: null,
+  content_type: null,
   text: '',
   focusDate: null,
   caretPosition: null,
@@ -75,6 +77,7 @@ const initialState = ImmutableMap({
   suggestions: ImmutableList(),
   default_privacy: 'public',
   default_federation: true,
+  default_content_type: 'text/plain',
   default_sensitive: false,
   resetFileKey: Math.floor((Math.random() * 0x10000)),
   idempotencyKey: null,
@@ -107,6 +110,7 @@ function clearAll(state) {
     map.set('in_reply_to', null);
     map.set('privacy', state.get('default_privacy'));
     map.set('federation', state.get('default_federation'));
+    map.set('content_type', state.get('default_content_type'));
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
@@ -287,6 +291,10 @@ export default function compose(state = initialState, action) {
     return state
       .set('federation', action.value)
       .set('idempotencyKey', uuid());
+  case COMPOSE_CONTENT_TYPE_CHANGE:
+    return state
+      .set('content_type', action.value)
+      .set('idempotencyKey', uuid());
   case COMPOSE_VISIBILITY_CHANGE:
     return state
       .set('privacy', action.value)
@@ -303,6 +311,7 @@ export default function compose(state = initialState, action) {
       map.set('text', statusToTextMentions(state, action.status));
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
       map.set('federation', !action.status.get('local_only'));
+      map.set('content_type', action.status.get('content_type')); // TODO MDpref
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('preselectDate', new Date());
@@ -326,6 +335,7 @@ export default function compose(state = initialState, action) {
       map.set('privacy', state.get('default_privacy'));
       map.set('poll', null);
       map.set('federation', state.get('default_federation'));
+      map.set('content_type', state.get('default_content_type'));
       map.set('idempotencyKey', uuid());
     });
   case COMPOSE_SUBMIT_REQUEST:
@@ -413,6 +423,7 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('privacy', action.status.get('visibility'));
       map.set('federation', !action.status.get('local_only'));
+      map.set('content_type', action.status.get('content_type'));
       map.set('media_attachments', action.status.get('media_attachments'));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
