@@ -11,6 +11,7 @@ class REST::CredentialAccountSerializer < REST::AccountSerializer
       sensitive: user.setting_default_sensitive,
       language: user.setting_default_language,
       federation: user.setting_default_federation,
+      content_type: user.setting_default_content_type,
       note: object.note,
       fields: object.fields.map(&:to_h),
       follow_requests_count: FollowRequest.where(target_account: object).limit(40).count,

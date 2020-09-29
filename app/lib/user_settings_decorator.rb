@@ -21,6 +21,7 @@ class UserSettingsDecorator
     user.settings['default_sensitive']   = default_sensitive_preference if change?('setting_default_sensitive')
     user.settings['default_language']    = default_language_preference if change?('setting_default_language')
     user.settings['default_federation']  = default_federation_preference if change?('setting_default_federation')
+    user.settings['default_content_type']= default_content_type_preference if change?('setting_default_content_type')
     user.settings['unfollow_modal']      = unfollow_modal_preference if change?('setting_unfollow_modal')
     user.settings['boost_modal']         = boost_modal_preference if change?('setting_boost_modal')
     user.settings['delete_modal']        = delete_modal_preference if change?('setting_delete_modal')
@@ -59,6 +60,10 @@ class UserSettingsDecorator
 
   def default_federation_preference
     boolean_cast_setting 'setting_default_federation'
+  end
+  
+  def default_content_type_preference
+    settings['setting_default_content_type']
   end
 
   def unfollow_modal_preference
