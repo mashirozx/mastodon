@@ -311,7 +311,7 @@ export default function compose(state = initialState, action) {
       map.set('text', statusToTextMentions(state, action.status));
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
       map.set('federation', !action.status.get('local_only'));
-      map.set('content_type', action.status.get('content_type')); // TODO MDpref
+      map.set('content_type', state.get('default_content_type'));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('preselectDate', new Date());
