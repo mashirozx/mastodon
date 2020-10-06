@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import IconButton from 'mastodon/components/icon_button';
 import Icon from 'mastodon/components/icon';
 import { defineMessages, injectIntl, FormattedMessage, FormattedDate } from 'react-intl';
-import { autoPlayGif, reduceMotion } from 'mastodon/initial_state';
-import elephantUIPlane from 'mastodon/../images/elephant_ui_plane_sub.png';
+import { autoPlayGif, reduceMotion, disableSwiping } from 'mastodon/initial_state';
+import elephantUIPlane from 'mastodon/../images/elephant_ui_plane.png';
 import { mascot } from 'mastodon/initial_state';
 import unicodeMapping from 'mastodon/features/emoji/emoji_unicode_mapping_light';
 import classNames from 'classnames';
@@ -436,6 +436,7 @@ class Announcements extends ImmutablePureComponent {
                 removeReaction={this.props.removeReaction}
                 intl={intl}
                 selected={index === idx}
+                disabled={disableSwiping}
               />
             ))}
           </ReactSwipeableViews>
