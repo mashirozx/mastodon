@@ -338,6 +338,8 @@
   "notifications.filter.polls": "Poll results",
   "notifications.filter.statuses": "Updates from people you follow",
   "notifications.group": "{count} notifications",
+  "notifications.mark_as_read": "Mark every notification as read",
+  "picture_in_picture.restore": "Put it back",
   "poll.closed": "Closed",
   "poll.refresh": "Refresh",
   "poll.total_people": "{count, plural, one {# person} other {# people}}",
