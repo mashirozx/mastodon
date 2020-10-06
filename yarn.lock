@@ -1107,11 +1107,6 @@
   resolved "https://registry.yarnpkg.com/@formatjs/intl-utils/-/intl-utils-2.2.5.tgz#eaafd94df3d102ee13e54e80f992a33868a6b1e8"
   integrity sha512-p7gcmazKROteL4IECCp03Qrs790fZ8tbemUAjQu0+K0AaAlK49rI1SIFFq3LzDUAqXIshV95JJhRe/yXxkal5g==
 
-"@fortawesome/fontawesome-free@^5.15.0":
-  version "5.15.0"
-  resolved "https://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.15.0.tgz#631b04d6301fee06d4bd7a9824fe7157735cbdb6"
-  integrity sha1-YxsE1jAf7gbUvXqYJP5xV3NcvbY=
-
 "@gamestdio/websocket@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@gamestdio/websocket/-/websocket-0.3.2.tgz#321ba0976ee30fd14e51dbf8faa85ce7b325f76a"
@@ -1318,6 +1313,10 @@
     "@types/node" "*"
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
+
+"@moezx/fontawesome-pro@https://gitee.com/mashirozx/Font-Awesome.git":
+  version "5.14.0"
+  resolved "https://gitee.com/mashirozx/Font-Awesome.git#bf65af970b20f2f8cc9d10e7118cb0495dc82e1e"
 
 "@npmcli/move-file@^1.0.1":
   version "1.0.1"
