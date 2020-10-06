@@ -1314,6 +1314,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@moezx/fontawesome-pro@https://gitee.com/mashirozx/Font-Awesome.git":
+  version "5.14.0"
+  resolved "https://gitee.com/mashirozx/Font-Awesome.git#bf65af970b20f2f8cc9d10e7118cb0495dc82e1e"
+
 "@npmcli/move-file@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@npmcli/move-file/-/move-file-1.0.1.tgz#de103070dac0f48ce49cf6693c23af59c0f70464"
