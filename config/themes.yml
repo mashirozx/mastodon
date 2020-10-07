@@ -18,9 +18,10 @@ light-pink: styles/light-pink.scss
 witches-town: styles/witches-town.scss
 sleeping-town: styles/sleeping-town.scss
 forest: styles/forest.scss
+strawberry: styles/strawberry.scss
 new-year: styles/new-year.scss
 nga: styles/nga.scss
 # sakura: styles/sakura.scss
-# luxury: styles/luxury.scss
+luxury: styles/luxury.scss
 # ubuntu-light: styles/ubuntu-light.scss
 ubuntu-terminal: styles/ubuntu-terminal.scss
