@@ -3,7 +3,6 @@ pre.highlight {
   overflow-x: auto;
   margin-bottom: 20px;
   padding: 8px;
-  border-radius: 4px;
 
   >code {
     background-color: $highlight-background;
@@ -15,6 +14,7 @@ pre.highlight {
 
   background: $highlight-background;
   color: $highlight-primary;
+  border-radius: 4px;
 
 
   >code {

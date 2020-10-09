@@ -2168,7 +2168,7 @@ a.account__display-name {
   transition-property: border-bottom, background, color;
 
   .fa {
-    font-weight: 400;
+    // font-weight: 400; // comment to use default icon in Fontawesome 5
     font-size: 16px;
   }
 
