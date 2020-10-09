@@ -1288,7 +1288,9 @@ en:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
+    bilibili-light: Bilibili
     contrast: Mastodon (Dark-Blue)
+    cybre-light: Cybre Light
     dark-cyan: Mastodon (Dark-Cyan)
     dark-green: Mastodon (Dark-Green)
     dark-orange: Mastodon (Dark-Orange)
@@ -1309,6 +1311,7 @@ en:
     mastodon-light: Mastodon (Light-Blue)
     new-year: New Year
     nga: NGA Style
+    neon-city: Starry Sky
     sakura: Sakura
     sleeping-town: Sleeping Town
     strawberry: Strawberry

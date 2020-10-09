@@ -18,10 +18,21 @@ light-pink: styles/light-pink.scss
 witches-town: styles/witches-town.scss
 sleeping-town: styles/sleeping-town.scss
 forest: styles/forest.scss
-strawberry: styles/strawberry.scss
+neon-city: styles/neon-city.scss
+# strawberry: styles/strawberry.scss
 new-year: styles/new-year.scss
 nga: styles/nga.scss
+cybre-light: styles/cybre-light.scss
 # sakura: styles/sakura.scss
 luxury: styles/luxury.scss
 # ubuntu-light: styles/ubuntu-light.scss
 ubuntu-terminal: styles/ubuntu-terminal.scss
+bilibili-light: styles/bilibili-light.scss
+# linernotes-dark: styles/linernotes-dark.scss
+# swan-lake: styles/swan-lake.scss
+# cybre: styles/cybre.scss
+# cyberpunk-neon: styles/cyberpunk-neon.scss
+# pastel-gradient: styles/pastel-gradient.scss
+# purple-haze: styles/purple-haze.scss
+# geodude: styles/geodude.scss
+# royal-tenenbaums: styles/royal-tenenbaums.scss
