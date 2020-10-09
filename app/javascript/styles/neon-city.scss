@@ -255,6 +255,8 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
   .box-widget,
   .hero-widget__text,
   .trends-widget,
+  .public-account-header,
+  .public-account-bio,
   .footer {
     // background: $ui-base-color;
     background: $transparent-light;
@@ -262,6 +264,7 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
 
   .contact-widget,
   .trends-widget,
+  .public-account-header,
   .footer {
     border-radius: 4px;
   }
