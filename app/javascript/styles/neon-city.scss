@@ -3,7 +3,7 @@ $ui-highlight-color: rgb(149, 84, 148); // vibrant
 $ui-secondary-color: #b9b9ba; // lightest
 $ui-primary-color: #b9b9ba; // lighter
 $ui-primary-color-alt: #b49cac; // darker, for external pages
-$ui-link-text-color: #65cfed;
+$ui-link-text-color: $ui-highlight-color;
 
 $about-page-text: lighten($ui-base-color, 50%);
 
@@ -253,18 +253,20 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
   .nothing-here,
   .contact-widget,
   .box-widget,
-  .hero-widget,
+  .hero-widget__text,
+  .trends-widget,
   .footer {
     // background: $ui-base-color;
     background: $transparent-light;
   }
 
-  .contact-widget {
+  .contact-widget,
+  .trends-widget,
+  .footer {
     border-radius: 4px;
   }
 
   .footer {
-    border-radius: 4px;
     padding: 25px 40px;
     margin: 10px 0;
   }
