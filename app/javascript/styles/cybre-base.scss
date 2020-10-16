@@ -25,14 +25,14 @@
 }
 
 /* Less emphatic show more */
-// .status__content__read-more-button {
-//   font-size: 14px;
-//   color: $dark-text-color;
+.status__content__read-more-button {
+  font-size: 14px;
+  color: $dark-text-color;
 
-//   .status__prepend-icon {
-//     padding-right: 4px;
-//   }
-// }
+  .status__prepend-icon {
+    padding-right: 4px;
+  }
+}
 
 /* Show a little arrowey thing after the time in a
  * status to signal that you can click it to see

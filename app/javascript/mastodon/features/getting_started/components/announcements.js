@@ -15,7 +15,6 @@ import EmojiPickerDropdown from 'mastodon/features/compose/containers/emoji_pick
 import AnimatedNumber from 'mastodon/components/animated_number';
 import TransitionMotion from 'react-motion/lib/TransitionMotion';
 import spring from 'react-motion/lib/spring';
-import { assetHost } from 'mastodon/utils/config';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
@@ -153,6 +152,8 @@ class Content extends ImmutablePureComponent {
   }
 
 }
+
+const assetHost = process.env.CDN_HOST || '';
 
 class Emoji extends React.PureComponent {
 

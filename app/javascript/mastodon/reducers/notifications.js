@@ -10,8 +10,6 @@ import {
   NOTIFICATIONS_MOUNT,
   NOTIFICATIONS_UNMOUNT,
   NOTIFICATIONS_MARK_AS_READ,
-  NOTIFICATIONS_SET_BROWSER_SUPPORT,
-  NOTIFICATIONS_SET_BROWSER_PERMISSION,
 } from '../actions/notifications';
 import {
   ACCOUNT_BLOCK_SUCCESS,
@@ -42,8 +40,6 @@ const initialState = ImmutableMap({
   readMarkerId: '0',
   isTabVisible: true,
   isLoading: false,
-  browserSupport: false,
-  browserPermission: 'default',
 });
 
 const notificationToMap = notification => ImmutableMap({
@@ -155,7 +151,7 @@ const deleteByStatus = (state, statusId) => {
 
 const updateMounted = (state) => {
   state = state.update('mounted', count => count + 1);
-  if (!shouldCountUnreadNotifications(state, state.get('mounted') === 1)) {
+  if (!shouldCountUnreadNotifications(state)) {
     state = state.set('readMarkerId', state.get('lastReadId'));
     state = clearUnread(state);
   }
@@ -171,15 +167,14 @@ const updateVisibility = (state, visibility) => {
   return state;
 };
 
-const shouldCountUnreadNotifications = (state, ignoreScroll = false) => {
+const shouldCountUnreadNotifications = (state) => {
   const isTabVisible   = state.get('isTabVisible');
   const isOnTop        = state.get('top');
   const isMounted      = state.get('mounted') > 0;
   const lastReadId     = state.get('lastReadId');
-  const lastItem       = state.get('items').findLast(item => item !== null);
-  const lastItemReached = !state.get('hasMore') || lastReadId === '0' || (lastItem && compareId(lastItem.get('id'), lastReadId) <= 0);
+  const lastItemReached = !state.get('hasMore') || lastReadId === '0' || (!state.get('items').isEmpty() && compareId(state.get('items').last().get('id'), lastReadId) <= 0);
 
-  return !(isTabVisible && (ignoreScroll || isOnTop) && isMounted && lastItemReached);
+  return !(isTabVisible && isOnTop && isMounted && lastItemReached);
 };
 
 const recountUnread = (state, last_read_id) => {
@@ -246,10 +241,6 @@ export default function notifications(state = initialState, action) {
   case NOTIFICATIONS_MARK_AS_READ:
     const lastNotification = state.get('items').find(item => item !== null);
     return lastNotification ? recountUnread(state, lastNotification.get('id')) : state;
-  case NOTIFICATIONS_SET_BROWSER_SUPPORT:
-    return state.set('browserSupport', action.value);
-  case NOTIFICATIONS_SET_BROWSER_PERMISSION:
-    return state.set('browserPermission', action.value);
   default:
     return state;
   }
