@@ -464,12 +464,12 @@ ActiveRecord::Schema.define(version: 2020_10_08_220312) do
   end
 
   create_table "ip_blocks", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "expires_at"
     t.inet "ip", default: "0.0.0.0", null: false
     t.integer "severity", default: 0, null: false
+    t.datetime "expires_at"
     t.text "comment", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "list_accounts", force: :cascade do |t|

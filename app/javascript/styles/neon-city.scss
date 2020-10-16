@@ -381,8 +381,16 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
 
 /* customize color and opacity */
 .status__content a,
-.status__content a.unhandled-link {
+.status__content a.unhandled-link,
+.hashtag,
+.u-url.status-link:not(.unhandled-link) {
   color: $ui-link-text-color;
+  // linear-gradient(92.05deg, #BCA1F7 12.09%, #E577B4 42.58%, #FF7170 84.96%);
+  background: linear-gradient(92.05deg, $ui-highlight-color 12.09%, #E577B4 42.58%, #FF7170 84.96%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
 }
 
 .status__content {
@@ -491,4 +499,8 @@ body,
 .detailed-status,
 .detailed-status__action-bar {
   background: transparent;
+}
+
+.simple_form .label_input__append:after {
+  background-image: linear-gradient(90deg, rgba(2, 2, 2, 0), transparent);
 }
