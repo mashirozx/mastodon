@@ -26,10 +26,11 @@ class ResolveAccountService < BaseService
 
     @account ||= Account.find_remote(@username, @domain)
 
-    return @account if @account&.local? || @domain.nil? || !webfinger_update_due?
+    return @account if @account&.local? || !webfinger_update_due?
 
     # At this point we are in need of a Webfinger query, which may
     # yield us a different username/domain through a redirect
+
     process_webfinger!(@uri)
 
     # Because the username/domain pair may be different than what
@@ -46,7 +47,7 @@ class ResolveAccountService < BaseService
     # either needs to be created, or updated from fresh data
 
     process_account!
-  rescue Webfinger::Error, WebfingerRedirectError, Oj::ParseError => e
+  rescue Goldfinger::Error, WebfingerRedirectError, Oj::ParseError => e
     Rails.logger.debug "Webfinger query for #{@uri} failed: #{e}"
     nil
   end
@@ -117,11 +118,11 @@ class ResolveAccountService < BaseService
   end
 
   def activitypub_ready?
-    ['application/activity+json', 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"'].include?(@webfinger.link('self', 'type'))
+    !@webfinger.link('self').nil? && ['application/activity+json', 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"'].include?(@webfinger.link('self').type)
   end
 
   def actor_url
-    @actor_url ||= @webfinger.link('self', 'href')
+    @actor_url ||= @webfinger.link('self').href
   end
 
   def actor_json

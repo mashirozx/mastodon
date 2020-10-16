@@ -40,14 +40,14 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
 }
 
 /* Less emphatic show more */
-// .status__content__read-more-button {
-//   font-size: 14px;
-//   color: $dark-text-color;
+.status__content__read-more-button {
+  font-size: 14px;
+  color: $dark-text-color;
 
-//   .status__prepend-icon {
-//     padding-right: 4px;
-//   }
-// }
+  .status__prepend-icon {
+    padding-right: 4px;
+  }
+}
 
 /* Show a little arrowey thing after the time in a
  * status to signal that you can click it to see
@@ -255,8 +255,6 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
   .box-widget,
   .hero-widget__text,
   .trends-widget,
-  .public-account-header,
-  .public-account-bio,
   .footer {
     // background: $ui-base-color;
     background: $transparent-light;
@@ -264,7 +262,6 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
 
   .contact-widget,
   .trends-widget,
-  .public-account-header,
   .footer {
     border-radius: 4px;
   }
@@ -381,16 +378,8 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
 
 /* customize color and opacity */
 .status__content a,
-.status__content a.unhandled-link,
-.hashtag,
-.u-url.status-link:not(.unhandled-link) {
+.status__content a.unhandled-link {
   color: $ui-link-text-color;
-  // linear-gradient(92.05deg, #BCA1F7 12.09%, #E577B4 42.58%, #FF7170 84.96%);
-  background: linear-gradient(92.05deg, $ui-highlight-color 12.09%, #E577B4 42.58%, #FF7170 84.96%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-box-decoration-break: clone;
 }
 
 .status__content {
@@ -499,9 +488,4 @@ body,
 .detailed-status,
 .detailed-status__action-bar {
   background: transparent;
-}
-
-.simple_form .label_input__append:after {
-  background-image: linear-gradient(90deg, rgba(2, 2, 2, 0), transparent);
-
 }

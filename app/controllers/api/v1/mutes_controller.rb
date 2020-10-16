@@ -7,7 +7,7 @@ class Api::V1::MutesController < Api::BaseController
 
   def index
     @accounts = load_accounts
-    render json: @accounts, each_serializer: REST::MutedAccountSerializer
+    render json: @accounts, each_serializer: REST::AccountSerializer
   end
 
   private
