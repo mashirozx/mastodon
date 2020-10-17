@@ -387,8 +387,8 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
 .hashtag,
 .u-url.status-link:not(.unhandled-link) {
   color: $ui-link-text-color;
-  // linear-gradient(92.05deg, #BCA1F7 12.09%, #E577B4 42.58%, #FF7170 84.96%);
-  background: linear-gradient(92.05deg, rgb(150, 84, 149) 12.09%, rgb(191, 137, 153) 42.58%, rgb(250, 147, 62) 84.96%);
+  background: linear-gradient(92.05deg, #BCA1F7 12.09%, #E577B4 42.58%, #FF7170 84.96%);
+  // background: linear-gradient(92.05deg, rgb(150, 84, 149) 12.09%, rgb(191, 137, 153) 42.58%, rgb(250, 147, 62) 84.96%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
