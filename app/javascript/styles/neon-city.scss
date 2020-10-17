@@ -255,6 +255,8 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
   .box-widget,
   .hero-widget__text,
   .trends-widget,
+  .endorsements-widget,
+  .placeholder-widget,
   .public-account-header,
   .public-account-bio,
   .footer {
@@ -385,12 +387,16 @@ $transparent-dark:rgba(17, 17, 17, 0.9);
 .hashtag,
 .u-url.status-link:not(.unhandled-link) {
   color: $ui-link-text-color;
-  // linear-gradient(92.05deg, #BCA1F7 12.09%, #E577B4 42.58%, #FF7170 84.96%);
-  background: linear-gradient(92.05deg, $ui-highlight-color 12.09%, #E577B4 42.58%, #FF7170 84.96%);
+  background: linear-gradient(92.05deg, #BCA1F7 12.09%, #E577B4 42.58%, #FF7170 84.96%);
+  // background: linear-gradient(92.05deg, rgb(150, 84, 149) 12.09%, rgb(191, 137, 153) 42.58%, rgb(250, 147, 62) 84.96%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-box-decoration-break: clone;
+}
+
+.muted .status__content a {
+  border-color: $ui-highlight-color;
 }
 
 .status__content {
@@ -503,5 +509,30 @@ body,
 
 .simple_form .label_input__append:after {
   background-image: linear-gradient(90deg, rgba(2, 2, 2, 0), transparent);
+}
 
+.highlight {
+  background: rgba(45, 45, 45, .5);
+}
+
+pre.highlight>code {
+  background-color: rgba(45, 45, 45, .5);
+}
+
+.column-subheading {
+  color: $white;
+}
+
+.getting-started__footer p {
+  color: $ui-secondary-color;
+
+  a {
+    color: $ui-secondary-color;
+  }
+}
+
+.drawer__tab,
+.navigation-bar__profile-account,
+.navigation-bar__profile-edit {
+  color: $white !important;
 }
