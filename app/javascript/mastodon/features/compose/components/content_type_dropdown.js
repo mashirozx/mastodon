@@ -227,7 +227,7 @@ class ContentTypeDropdown extends React.PureComponent {
     const { intl: { formatMessage } } = this.props;
 
     this.options = [
-      { icon: 'pen-nib:fas', value: 'text/plain', text: formatMessage(messages.plain), meta: null },
+      { icon: 'feather:fas', value: 'text/plain', text: formatMessage(messages.plain), meta: null },
       { icon: 'markdown:fab', value: 'text/markdown', text: formatMessage(messages.markdown), meta: null },
     ];
   }
