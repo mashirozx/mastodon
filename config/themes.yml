@@ -15,19 +15,21 @@ dark-orange: styles/dark-orange.scss
 light-orange: styles/light-orange.scss
 dark-pink: styles/dark-pink.scss
 light-pink: styles/light-pink.scss
+transparent-starry-sky: styles/transparent-starry-sky.scss
+transparent-forest-trace: styles/transparent-forest-trace.scss
+transparent-aurora: styles/transparent-aurora.scss
 witches-town: styles/witches-town.scss
 sleeping-town: styles/sleeping-town.scss
 forest: styles/forest.scss
-neon-city: styles/neon-city.scss
 # strawberry: styles/strawberry.scss
 new-year: styles/new-year.scss
 nga: styles/nga.scss
-cybre-light: styles/cybre-light.scss
+##cybre-light: styles/cybre-light.scss
 # sakura: styles/sakura.scss
-luxury: styles/luxury.scss
+##luxury: styles/luxury.scss
 # ubuntu-light: styles/ubuntu-light.scss
-ubuntu-terminal: styles/ubuntu-terminal.scss
-bilibili-light: styles/bilibili-light.scss
+##ubuntu-terminal: styles/ubuntu-terminal.scss
+##bilibili-light: styles/bilibili-light.scss
 # linernotes-dark: styles/linernotes-dark.scss
 # swan-lake: styles/swan-lake.scss
 # cybre: styles/cybre.scss
