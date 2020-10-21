@@ -33,7 +33,7 @@ pre.highlight {
   /* --- Generics --- */
   .ge {
     /* emph */
-    font-style: italic;
+    // font-style: italic;
   }
 
   .gs {
@@ -56,31 +56,31 @@ pre.highlight {
   .c {
     /* Comment */
     color: $highlight-comment;
-    font-style: italic;
+    // font-style: italic;
   }
 
   .cm {
     /* Multi-line */
     color: $highlight-comment;
-    font-style: italic;
+    // font-style: italic;
   }
 
   .cp {
     /* Preproc */
     color: $highlight-comment;
-    font-style: italic;
+    // font-style: italic;
   }
 
   .c1 {
     /* Single */
     color: $highlight-comment;
-    font-style: italic;
+    // font-style: italic;
   }
 
   .cs {
     /* Special */
     color: $highlight-comment;
-    font-style: italic;
+    // font-style: italic;
   }
 
   /* --- Names --- */
