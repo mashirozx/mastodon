@@ -9,7 +9,7 @@ import PollContainer from 'mastodon/containers/poll_container';
 import Icon from 'mastodon/components/icon';
 import { autoPlayGif } from 'mastodon/initial_state';
 import { getLocale  } from 'mastodon/locales';
-import { parse as htmlPare } from 'node-html-parser';
+import { parse as htmlParser } from 'node-html-parser';
 import googleLogo from 'images/google_logo.svg';
 import api from '../api';
 
@@ -182,7 +182,7 @@ export default class StatusContent extends React.PureComponent {
 
     if (this.state.hideTranslation === true && this.state.translation === null) {
       const { status } = this.props;
-      const content = status.get('content').length === 0 ? '' : htmlPare(status.get('content')).structuredText;
+      const content = status.get('content').length === 0 ? '' : htmlParser(status.get('content')).structuredText;
 
       let locale = getLocale().localeData[0].locale;
       if (locale === 'zh') {
@@ -232,19 +232,25 @@ export default class StatusContent extends React.PureComponent {
     const renderReadMore = this.props.onClick && status.get('collapsed');
     const renderViewThread = this.props.showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']);
 
-    const htmlContent = htmlPare(status.get('contentHtml'));
-    htmlContent.querySelectorAll('.hashtag').forEach((e)=>{
-      console.log(e.innerHTML);
-      e.set_content(e.innerHTML.replace('#', '<span class="hash_char">#</span>'));
-    })
-    const content = { __html: htmlContent.toString() };
+    // const htmlContent = htmlParser(status.get('contentHtml'));
+    // htmlContent.querySelectorAll('.hashtag').forEach((e)=>{
+    //   // console.log(e.innerHTML);
+    //   e.set_content(e.innerHTML.replace('#', '<span class="hash_char">#</span>'));
+    // })
+    let htmlContents = status.get('contentHtml');
+    htmlContents = htmlContents.replace('>#<span', '><span class="hash_char">#</span><span');
+    // const content = { __html: htmlContent };
+    const content = { __html: htmlContents };
     
-    const htmlSpoilerContent = htmlPare(status.get('spoilerHtml'));
-    htmlSpoilerContent.querySelectorAll('.hashtag').forEach((e)=>{
-      console.log(e.innerHTML);
-      e.set_content(e.innerHTML.replace('#', '<span class="hash_char">#</span>'));
-    })
-    const spoilerContent = { __html: htmlSpoilerContent.toString() };
+    // const htmlSpoilerContent = htmlParser(status.get('spoilerHtml'));
+    // htmlSpoilerContent.querySelectorAll('.hashtag').forEach((e)=>{
+    //   // console.log(e.innerHTML);
+    //   e.set_content(e.innerHTML.replace('#', '<span class="hash_char">#</span>'));
+    // })
+    let htmlSpoilerContents = status.get('spoilerHtml');
+    htmlSpoilerContents = htmlSpoilerContents.replace('>#<span', '><span class="hash_char">#</span><span');
+    //const spoilerContent = { __html: htmlSpoilerContent.toString() };
+    const spoilerContent = { __html: htmlSpoilerContents };
 
     const directionStyle = { direction: 'ltr' };
     const classNames = classnames('status__content', {
