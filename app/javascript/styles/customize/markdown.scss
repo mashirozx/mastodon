@@ -45,7 +45,7 @@
   }
 
   code {
-    font-family: $font-monospace, monospace;
+    font-family: $font-monospace, -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun, monospace;
     background-color: darken($ui-base-color, 8%);
     border-radius: 3px;
     font-size: 0.85em;
