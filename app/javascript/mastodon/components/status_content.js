@@ -234,7 +234,7 @@ export default class StatusContent extends React.PureComponent {
 
     const addHashtagMarkup = (html) => {
       let template = document.createElement('template');
-      template.innerHTML = `<div>${html}<div/>`;
+      template.innerHTML = `<fragment>${html}<fragment/>`;
       template.content.firstChild.querySelectorAll('.hashtag').forEach((e)=>{
         e.innerHTML = e.innerHTML.replace('#', '<span class="hash_char">#</span>');
       })
