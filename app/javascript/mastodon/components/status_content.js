@@ -232,25 +232,17 @@ export default class StatusContent extends React.PureComponent {
     const renderReadMore = this.props.onClick && status.get('collapsed');
     const renderViewThread = this.props.showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']);
 
-    // const htmlContent = htmlParser(status.get('contentHtml'));
-    // htmlContent.querySelectorAll('.hashtag').forEach((e)=>{
-    //   // console.log(e.innerHTML);
-    //   e.set_content(e.innerHTML.replace('#', '<span class="hash_char">#</span>'));
-    // })
-    let htmlContents = status.get('contentHtml');
-    htmlContents = htmlContents.replace('>#<span', '><span class="hash_char">#</span><span');
-    // const content = { __html: htmlContent };
-    const content = { __html: htmlContents };
+    const addHashtagMarkup = (html) => {
+      let template = document.createElement('template');
+      template.innerHTML = `<fragment>${html}<fragment/>`;
+      template.content.firstChild.querySelectorAll('.hashtag').forEach((e)=>{
+        e.innerHTML = e.innerHTML.replace('#', '<span class="hash_char">#</span>');
+      })
+      return template.content.firstChild.innerHTML
+    }
     
-    // const htmlSpoilerContent = htmlParser(status.get('spoilerHtml'));
-    // htmlSpoilerContent.querySelectorAll('.hashtag').forEach((e)=>{
-    //   // console.log(e.innerHTML);
-    //   e.set_content(e.innerHTML.replace('#', '<span class="hash_char">#</span>'));
-    // })
-    let htmlSpoilerContents = status.get('spoilerHtml');
-    htmlSpoilerContents = htmlSpoilerContents.replace('>#<span', '><span class="hash_char">#</span><span');
-    //const spoilerContent = { __html: htmlSpoilerContent.toString() };
-    const spoilerContent = { __html: htmlSpoilerContents };
+    const content = { __html: addHashtagMarkup(status.get('contentHtml')) };
+    const spoilerContent = { __html: addHashtagMarkup(status.get('spoilerHtml')) };
 
     const directionStyle = { direction: 'ltr' };
     const classNames = classnames('status__content', {
