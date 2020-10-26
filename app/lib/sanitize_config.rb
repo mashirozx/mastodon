@@ -18,7 +18,6 @@ class Sanitize
       gopher
       xmpp
       magnet
-      gemini
     ).freeze
 
     CLASS_WHITELIST_TRANSFORMER = lambda do |env|
