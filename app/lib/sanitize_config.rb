@@ -53,7 +53,7 @@ class Sanitize
     end
 
     UNSUPPORTED_ELEMENTS_TRANSFORMER = lambda do |env|
-      return unless %w(h1 h2 h3 h4 h5 h6 blockquote pre ul ol li).include?(env[:node_name])
+      return unless %w(h1 h2 h3 h4 h5 h6 ul ol li).include?(env[:node_name])
 
       current_node = env[:node]
 
@@ -71,7 +71,7 @@ class Sanitize
     end
 
     MASTODON_STRICT ||= freeze_config(
-      elements: %w(p br span a),
+      elements: %w(p br span a em i  strong b code del s blockquote pre code),
 
       attributes: {
         'a'    => %w(href rel class),

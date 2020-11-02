@@ -87,11 +87,24 @@ class PostStatusService < BaseService
     end
   end
 
+  def local_only_option(local_only, in_reply_to, federation_setting)
+    return in_reply_to&.local_only? if local_only.nil? # XXX temporary, just until clients implement to avoid leaking local_only posts
+    return federation_setting if local_only.nil?
+    local_only
+  end
+
+  def content_type_option(content_type, content_type_setting)
+    return content_type_setting if content_type.nil?
+    content_type
+  end
+
   def postprocess_status!
     LinkCrawlWorker.perform_async(@status.id) unless @status.spoiler_text?
     DistributionWorker.perform_async(@status.id)
-    ActivityPub::DistributionWorker.perform_async(@status.id)
-    PollExpirationNotifyWorker.perform_at(@status.poll.expires_at, @status.poll.id) if @status.poll
+    unless @status.local_only?
+      ActivityPub::DistributionWorker.perform_async(@status.id)
+      PollExpirationNotifyWorker.perform_at(@status.poll.expires_at, @status.poll.id) if @status.poll
+    end
   end
 
   def validate_media!
@@ -164,6 +177,8 @@ class PostStatusService < BaseService
       language: language_from_option(@options[:language]) || @account.user&.setting_default_language&.presence || LanguageDetector.instance.detect(@text, @account),
       application: @options[:application],
       rate_limit: @options[:with_rate_limit],
+      local_only: local_only_option(@options[:local_only], @in_reply_to, @account.user&.setting_default_federation),
+      content_type: content_type_option(@options[:content_type], @account.user&.setting_default_content_type),
     }.compact
   end
 
