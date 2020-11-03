@@ -298,11 +298,7 @@ class Status extends ImmutablePureComponent {
     let media = null;
     let statusAvatar, prepend, rebloggedByText, unlistedQuoteText;
 
-<<<<<<< HEAD
-    const { intl, hidden, featured, otherAccounts, unread, showThread, scrollKey, usingPiP } = this.props;
-=======
-    const { intl, hidden, featured, otherAccounts, unread, showThread, scrollKey, contextType } = this.props;
->>>>>>> d955cb792... Add quote feature
+    const { intl, hidden, featured, otherAccounts, unread, showThread, scrollKey, usingPiP, contextType } = this.props;
 
     let { status, account, ...other } = this.props;
 
