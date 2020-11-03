@@ -90,8 +90,9 @@ export function normalizeStatus(status, normalOldStatus) {
           parentNode.insertBefore(document.createTextNode(' '), line.nextSibling);
         }
       });
-      let _contentHtml = docElem.textContent;
-      normalStatus.quote.contentHtml  = '<p>'+emojify(_contentHtml.substr(0, 150), quote_emojiMap) + (_contentHtml.substr(150) ? '...' : '')+'</p>';
+      let _contentHtml = docElem.innerHTML;
+      // normalStatus.quote.contentHtml  = '<p>'+emojify(_contentHtml.substr(0, 150), quote_emojiMap) + (_contentHtml.substr(150) ? '...' : '')+'</p>';
+      normalStatus.quote.contentHtml  = '<p>'+emojify(_contentHtml, quote_emojiMap)+'</p>';
       normalStatus.quote.spoilerHtml  = emojify(escapeTextContentForBrowser(quote_spoilerText), quote_emojiMap);
       normalStatus.quote_hidden       = expandSpoilers ? false : quote_spoilerText.length > 0 || normalStatus.quote.sensitive;
     }
