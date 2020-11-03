@@ -44,6 +44,7 @@ class DetailedStatus extends ImmutablePureComponent {
     showMedia: PropTypes.bool,
     usingPiP: PropTypes.bool,
     onToggleMediaVisibility: PropTypes.func,
+    onQuoteToggleHidden: PropTypes.func.isRequired,
   };
 
   state = {
@@ -100,6 +101,19 @@ class DetailedStatus extends ImmutablePureComponent {
     window.open(href, 'mastodon-intent', 'width=445,height=600,resizable=no,menubar=no,status=no,scrollbars=yes');
   }
 
+  handleExpandedQuoteToggle = () => {
+    this.props.onQuoteToggleHidden(this.props.status);
+  }
+
+  handleQuoteClick = () => {
+    if (!this.context.router) {
+      return;
+    }
+
+    const { status } = this.props;
+    this.context.router.history.push(`/statuses/${status.getIn(['quote', 'id'])}`);
+  }
+
   render () {
     const status = (this.props.status && this.props.status.get('reblog')) ? this.props.status.get('reblog') : this.props.status;
     const outerStyle = { boxSizing: 'border-box' };
@@ -118,6 +132,36 @@ class DetailedStatus extends ImmutablePureComponent {
 
     if (this.props.measureHeight) {
       outerStyle.height = `${this.state.height}px`;
+    }
+
+    let quote = null;
+    if (status.get('quote', null) !== null) {
+      let quote_status = status.get('quote');
+
+      let quote_media = null;
+      if (quote_status.get('media_attachments').size > 0) {
+        quote_media = (
+          <MediaGallery
+            standalone
+            sensitive={quote_status.get('sensitive')}
+            media={quote_status.get('media_attachments')}
+            height={300}
+            onOpenMedia={this.props.onOpenMedia}
+            quote
+          />
+        );
+      }
+
+      quote = (
+        <div className='quote-status'>
+          <div className='status__info'>
+            <div className='status__avatar'><Avatar account={quote_status.get('account')} size={18} /></div>
+            <DisplayName account={quote_status.get('account')} />
+          </div>
+          <StatusContent status={quote_status} onClick={this.handleQuoteClick} expanded={!status.get('quote_hidden')} onExpandedToggle={this.handleExpandedQuoteToggle} />
+          {quote_media}
+        </div>
+      );
     }
 
     if (usingPiP) {
@@ -250,6 +294,7 @@ class DetailedStatus extends ImmutablePureComponent {
           <StatusContent status={status} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} />
 
           {media}
+          {quote}
 
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
