@@ -26,6 +26,7 @@
 #  local_only             :boolean
 #  content_type           :string
 #  quote_id               :bigint(8)
+#  expires_at             :datetime
 #
 
 class Status < ApplicationRecord
