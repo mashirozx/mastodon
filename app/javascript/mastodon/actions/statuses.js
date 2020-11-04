@@ -30,9 +30,6 @@ export const STATUS_COLLAPSE = 'STATUS_COLLAPSE';
 
 export const REDRAFT = 'REDRAFT';
 
-export const QUOTE_REVEAL = 'QUOTE_REVEAL';
-export const QUOTE_HIDE   = 'QUOTE_HIDE';
-
 export function fetchStatusRequest(id, skipLoading) {
   return {
     type: STATUS_FETCH_REQUEST,
@@ -275,25 +272,3 @@ export function toggleStatusCollapse(id, isCollapsed) {
     isCollapsed,
   };
 }
-
-export function hideQuote(ids) {
-  if (!Array.isArray(ids)) {
-    ids = [ids];
-  }
-
-  return {
-    type: QUOTE_HIDE,
-    ids,
-  };
-};
-
-export function revealQuote(ids) {
-  if (!Array.isArray(ids)) {
-    ids = [ids];
-  }
-
-  return {
-    type: QUOTE_REVEAL,
-    ids,
-  };
-};

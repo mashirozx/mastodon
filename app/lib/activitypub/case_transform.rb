@@ -14,8 +14,6 @@ module ActivityPub::CaseTransform
       when String
         camel_lower_cache[value] ||= if value.start_with?('_:')
                                        '_:' + value.gsub(/\A_:/, '').underscore.camelize(:lower)
-                                     elsif value.start_with?('_')
-                                       value
                                      else
                                        value.underscore.camelize(:lower)
                                      end
