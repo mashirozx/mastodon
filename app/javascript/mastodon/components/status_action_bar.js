@@ -233,7 +233,6 @@ class StatusActionBar extends ImmutablePureComponent {
     const mutingConversation = status.get('muted');
     const anonymousAccess    = !me;
     const publicStatus       = ['public', 'unlisted'].includes(status.get('visibility'));
-    const localOnly          = status.get('local_only');
     const account            = status.get('account');
     const federated          = !status.get('local_only');
 
@@ -332,7 +331,7 @@ class StatusActionBar extends ImmutablePureComponent {
         <IconButton className={classNames('status__action-bar-button', { reblogPrivate })} disabled={!publicStatus && !reblogPrivate}  active={status.get('reblogged')} pressed={status.get('reblogged')} title={reblogTitle} icon='retweet' onClick={this.handleReblogClick} />
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
 
-        <IconButton className='status__action-bar-button' disabled={anonymousAccess || !publicStatus || localOnly} title={anonymousAccess || !publicStatus || localOnly ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.quote)} icon='quote-right' onClick={this.handleQuoteClick} />
+        <IconButton className='status__action-bar-button' disabled={anonymousAccess || !publicStatus} title={!publicStatus ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.quote)} icon='quote-right' onClick={this.handleQuoteClick} />
         {shareButton}
 
         <div className='status__action-bar-dropdown'>
