@@ -29,6 +29,7 @@ export default class StatusContent extends React.PureComponent {
     onClick: PropTypes.func,
     collapsable: PropTypes.bool,
     onCollapsedToggle: PropTypes.func,
+    quote: PropTypes.bool,
   };
 
   state = {
@@ -222,7 +223,7 @@ export default class StatusContent extends React.PureComponent {
   }
 
   render () {
-    const { status } = this.props;
+    const { status, quote } = this.props;
 
     if (status.get('content').length === 0) {
       return null;
@@ -240,7 +241,7 @@ export default class StatusContent extends React.PureComponent {
       })
       return template.content.firstChild.innerHTML
     }
-    
+
     const content = { __html: addHashtagMarkup(status.get('contentHtml')) };
     const spoilerContent = { __html: addHashtagMarkup(status.get('spoilerHtml')) };
 
@@ -260,7 +261,7 @@ export default class StatusContent extends React.PureComponent {
         <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
       </button>
     );
-    
+
     const toggleTranslation = !this.state.hideTranslation ? <FormattedMessage id='status.hide_translation' defaultMessage='Hide translation' /> : <FormattedMessage id='status.show_translation' defaultMessage='Translate toot' />;
 
     const readMoreButton = (
@@ -270,7 +271,7 @@ export default class StatusContent extends React.PureComponent {
     );
 
     const translationContainer = (
-      getLocale().localeData[0].locale !== status.get('language') ? 
+      getLocale().localeData[0].locale !== status.get('language') ?
       <React.Fragment>
         <button
           tabIndex='-1' className={'status__content__show-translation-button'}
@@ -341,7 +342,7 @@ export default class StatusContent extends React.PureComponent {
 
           {!hidden ? translationContainer : null}
 
-          {!hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {!quote && !hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
           {renderViewThread && showThreadButton}
         </div>
@@ -353,7 +354,7 @@ export default class StatusContent extends React.PureComponent {
 
           {translationContainer}
 
-          {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {!quote && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
           {renderViewThread && showThreadButton}
         </div>,
@@ -371,7 +372,7 @@ export default class StatusContent extends React.PureComponent {
 
           {translationContainer}
 
-          {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {!quote && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
 
           {renderViewThread && showThreadButton}
         </div>
