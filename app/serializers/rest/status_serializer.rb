@@ -4,7 +4,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :in_reply_to_id, :in_reply_to_account_id,
              :sensitive, :spoiler_text, :visibility, :language,
              :uri, :url, :replies_count, :reblogs_count,
-             :favourites_count
+             :favourites_count, :local_only, :content_type
 
   attribute :favourited, if: :current_user?
   attribute :reblogged, if: :current_user?
@@ -14,6 +14,8 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   attribute :content, unless: :source_requested?
   attribute :text, if: :source_requested?
+
+  attribute :quote_id, if: -> { object.quote? }
 
   belongs_to :reblog, serializer: REST::StatusSerializer
   belongs_to :application, if: :show_application?
@@ -37,6 +39,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def in_reply_to_account_id
     object.in_reply_to_account_id&.to_s
+  end
+
+  def quote_id
+    object.quote_id.to_s
   end
 
   def current_user?
@@ -166,4 +172,14 @@ class REST::StatusSerializer < ActiveModel::Serializer
       tag_url(object)
     end
   end
+end
+
+class REST::NestedQuoteSerializer < REST::StatusSerializer
+  attribute :quote do
+    nil
+  end
+end
+
+class REST::StatusSerializer < ActiveModel::Serializer
+  belongs_to :quote, serializer: REST::NestedQuoteSerializer
 end
