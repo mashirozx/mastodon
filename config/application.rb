@@ -24,6 +24,8 @@ require_relative '../lib/devise/two_factor_pam_authenticatable'
 require_relative '../lib/chewy/strategy/custom_sidekiq'
 require_relative '../lib/kramdown/parser/mastodon'
 require_relative '../lib/kramdown/converter/mastodon'
+require_relative '../lib/webpacker/manifest_extensions'
+require_relative '../lib/webpacker/helper_extensions'
 
 Dotenv::Railtie.load
 
