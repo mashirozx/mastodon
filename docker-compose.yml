@@ -1,14 +1,11 @@
-version: '3.7'
+version: '3'
 services:
 
   db:
     restart: always
     image: postgres:9.6-alpine
-    ports:
-      # - "0.0.0.0:543:5432"
-      - "127.0.0.1:543:5432"
+    shm_size: 256mb
     networks:
-      - external_network
       - internal_network
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
@@ -18,11 +15,7 @@ services:
   redis:
     restart: always
     image: redis:6.0-alpine
-    ports:
-      # - "0.0.0.0:637:6379"
-      - "127.0.0.1:637:6379"
     networks:
-      - external_network
       - internal_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -49,7 +42,7 @@ services:
 #        hard: -1
 
   web:
-    # build: .
+    build: .
     image: mashirozx/mastodon:latest
     restart: always
     env_file: .env.production
@@ -60,24 +53,16 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:3000/health || exit 1"]
     ports:
-      - "127.0.0.1:97:3000"
+      - "127.0.0.1:3000:3000"
     depends_on:
       - db
       - redis
 #      - es
     volumes:
       - ./public/system:/mastodon/public/system
-    deploy:
-      resources:
-        limits:
-          cpus: '1.00'
-          memory: 400M
-        #reservations:
-        #  cpus: '0.5'
-        #  memory: 300M
 
   streaming:
-    # build: .
+    build: .
     image: mashirozx/mastodon:latest
     restart: always
     env_file: .env.production
@@ -88,13 +73,13 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1"]
     ports:
-      - "127.0.0.1:98:4000"
+      - "127.0.0.1:4000:4000"
     depends_on:
       - db
       - redis
 
   sidekiq:
-    # build: .
+    build: .
     image: mashirozx/mastodon:latest
     restart: always
     env_file: .env.production
@@ -107,14 +92,6 @@ services:
       - internal_network
     volumes:
       - ./public/system:/mastodon/public/system
-    deploy:
-      resources:
-        limits:
-          cpus: '1.00'
-          memory: 300M
-        #reservations:
-        #  cpus: '0.5'
-        #  memory: 200M
 ## Uncomment to enable federation with tor instances along with adding the following ENV variables
 ## http_proxy=http://privoxy:8118
 ## ALLOW_ACCESS_TO_HIDDEN_SERVICE=true
@@ -131,6 +108,16 @@ services:
 #    networks:
 #      - external_network
 #      - internal_network
+
+translate:
+  restart: always
+  image: mashirozx/google-translate-server:latest
+  # ports:
+  #   - "0.0.0.0:30031:30031"
+  command: "npm start -- --domain ${DOMAIN:-com}"
+  networks:
+    - external_network
+    - internal_network
 
 networks:
   external_network:
