@@ -41,6 +41,7 @@ zh-CN:
         phrase: 匹配将无视大小写和嘟文的内容警告
         scopes: 哪些 API 被允许使用。如果你选中了更高一级的范围，就不能单个选中了。
         setting_aggregate_reblogs: 请不要显示最近已经被转嘟过的转嘟（只会影响新收到的转嘟）
+        setting_default_federation: 关闭后，除非在写作的时候手动指定，否则嘟文不会传递给其他实例
         setting_default_sensitive: 敏感内容默认隐藏，并在点击后显示
         setting_display_media_default: 隐藏被标记为敏感内容的媒体
         setting_display_media_hide_all: 总是隐藏所有媒体
@@ -64,7 +65,7 @@ zh-CN:
       imports:
         data: 从其他 Mastodon 服务器导出的 CSV 文件
       invite_request:
-        text: 这会有助于我们处理你的申请
+        text: <strong>此项必须填写</strong>，这会有助于我们处理你的申请<br><br>请认真回答下面几个问题，除了是/否的项目，请用简短的句子回答。我们期待详尽的描述，而不是随意应付。<br><br>1) 你是否已经认真阅读了 <a href="/about/more" target="_blank">服务器规则</a> 和 <a href="/terms" target="_blank">服务条款</a>（是/否）？规则对 Mastodon 实例来说至关重要。<br><br>2) 请告知我们你的兴趣范围或者你从事哪一方面的项目和工作，你的帖子中将涉及哪些方面的话题？（本站不欢迎：饭圈/政治家/话痨/工口）<br><br>3) 你是如何知悉本站的？为何在众多长毛象实例中选择了本实例？<br><br>如果有本站用户邀请，请提供邀请人链接或者ID。
       ip_block:
         comment: 可选。请记住为什么您添加了此规则。
         expires_in: IP 地址是一种有限的资源，它们有时是共享的，并且常常变化。因此，不推荐无限期的 IP 封禁。
@@ -142,6 +143,8 @@ zh-CN:
         setting_auto_play_gif: 自动播放 GIF 动画
         setting_boost_modal: 在转嘟前询问我
         setting_crop_images: 把未展开嘟文中的图片裁剪到 16x9
+        setting_default_content_type: 默认的嘟文富文本格式
+        setting_default_federation: 默认允许自己的嘟文出现在其他实例上
         setting_default_language: 发布语言
         setting_default_privacy: 嘟文默认可见范围
         setting_default_sensitive: 总是将我发送的媒体文件标记为敏感内容
