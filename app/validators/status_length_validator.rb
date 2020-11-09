@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 class StatusLengthValidator < ActiveModel::Validator
-  MAX_CHARS = 500
+  MAX_CHARS = 2048
+  URL_PATTERN = %r{
+    (?:
+      (#{Twitter::TwitterText::Regex[:valid_url_preceding_chars]})
+      (#{FetchLinkCardService::URL_PATTERN})
+    )
+  }iox
   URL_PLACEHOLDER = "\1#{'x' * 23}"
 
   def validate(status)
