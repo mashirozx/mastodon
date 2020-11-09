@@ -26,6 +26,9 @@
         = react_component :poll, disabled: true, poll: ActiveModelSerializers::SerializableResource.new(status.preloadable_poll, serializer: REST::PollSerializer, scope: current_user, scope_name: :current_user).as_json do
           = render partial: 'statuses/poll', locals: { status: status, poll: status.preloadable_poll, autoplay: autoplay }
 
+  - if status.quote?
+    = render partial: "quote_status", locals: {status: status.quote}
+
   - if !status.media_attachments.empty?
     - if status.media_attachments.first.video?
       - video = status.media_attachments.first
@@ -75,6 +78,10 @@
       %span.detailed-status__favorites>= number_to_human status.favourites_count, strip_insignificant_zeros: true
       = " "
 
+    - if status.local_only
+      ·
+      %span.detailed-status__link.modal-button.disabled<
+        = fa_icon 'chain-broken fw', 'title': t('statuses.local_only')
     - if user_signed_in?
       ·
       = link_to t('statuses.open_in_web'), web_url("statuses/#{status.id}"), class: 'detailed-status__application', target: '_blank'

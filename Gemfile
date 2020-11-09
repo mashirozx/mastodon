@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: truey
 
 source 'https://rubygems.org'
 ruby '>= 2.5.0', '< 3.0.0'
@@ -61,6 +61,9 @@ gem 'http_accept_language', '~> 2.1'
 gem 'httplog', '~> 1.4.3'
 gem 'idn-ruby', require: 'idn'
 gem 'kaminari', '~> 1.2'
+gem 'kramdown', '~> 2.3'
+gem 'kramdown-parser-gfm', '~> 1.1'
+gem 'rouge', '~> 3.21'
 gem 'link_header', '~> 0.0'
 gem 'mime-types', '~> 3.3.1', require: 'mime/types/columnar'
 gem 'nilsimsa', git: 'https://github.com/witgo/nilsimsa', ref: 'fd184883048b922b176939f851338d0a4971a532'
@@ -159,5 +162,6 @@ end
 gem 'concurrent-ruby', require: false
 gem 'connection_pool', require: false
 
+gem "sidekiq-statistic", "~> 1.4"
 gem 'xorcist', '~> 1.1'
 gem 'pluck_each', '~> 0.1.3'

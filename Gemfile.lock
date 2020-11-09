@@ -313,6 +313,10 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    kramdown (2.3.0)
+      rexml
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     letter_opener (1.7.0)
@@ -508,6 +512,7 @@ GEM
       railties (>= 5.0)
     rexml (3.2.4)
     rotp (2.1.2)
+    rouge (3.21.0)
     rpam2 (4.0.2)
     rqrcode (1.1.2)
       chunky_png (~> 1.0)
@@ -579,6 +584,9 @@ GEM
       sidekiq (>= 3)
       thwait
       tilt (>= 1.4.0)
+    sidekiq-statistic (1.4.0)
+      sidekiq (>= 5.0)
+      tilt (~> 2.0)
     sidekiq-unique-jobs (6.0.25)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 4.0, < 7.0)
@@ -731,6 +739,8 @@ DEPENDENCIES
   json-ld
   json-ld-preloaded (~> 3.1)
   kaminari (~> 1.2)
+  kramdown (~> 2.3)
+  kramdown-parser-gfm (~> 1.1)
   letter_opener (~> 1.7)
   letter_opener_web (~> 1.4)
   link_header (~> 0.0)
@@ -777,6 +787,7 @@ DEPENDENCIES
   redis (~> 4.2)
   redis-namespace (~> 1.8)
   redis-rails (~> 5.0)
+  rouge (~> 3.21)
   rqrcode (~> 1.1)
   rspec-rails (~> 4.0)
   rspec-sidekiq (~> 3.1)
@@ -789,6 +800,7 @@ DEPENDENCIES
   sidekiq (~> 6.1)
   sidekiq-bulk (~> 0.2.0)
   sidekiq-scheduler (~> 3.0)
+  sidekiq-statistic (~> 1.4)
   sidekiq-unique-jobs (~> 6.0)
   simple-navigation (~> 4.1)
   simple_form (~> 5.0)
