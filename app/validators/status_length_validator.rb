@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StatusLengthValidator < ActiveModel::Validator
-  MAX_CHARS = 2048
+  MAX_CHARS = (ENV['MAX_TOOT_CHARS'] || 500).to_i
   URL_PATTERN = %r{
     (?:
       (#{Twitter::TwitterText::Regex[:valid_url_preceding_chars]})
