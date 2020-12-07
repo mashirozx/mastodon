@@ -994,3 +994,14 @@ code {
     flex-direction: row;
   }
 }
+
+.rucaptcha_image_wrapper {
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+}
+
+.rucaptcha-image {
+  border-radius: 5px;
+}
