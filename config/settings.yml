@@ -72,6 +72,7 @@ defaults: &defaults
   spam_check_enabled: true
   show_domain_blocks: 'disabled'
   show_domain_blocks_rationale: 'disabled'
+  enable_captcha: true
   require_invite_text: false
 
 development:
