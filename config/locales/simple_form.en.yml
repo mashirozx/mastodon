@@ -115,6 +115,10 @@ en:
         autofollow: Invite to follow your account
         avatar: Avatar
         bot: This is a bot account
+        captcha_hint: Input characters you see below
+        captcha_image: Loading Captcha Image...
+        captcha_invalid: Invalid captcha code, try again!
+        captcha_label: Captcha
         chosen_languages: Filter languages
         confirm_new_password: Confirm new password
         confirm_password: Confirm password

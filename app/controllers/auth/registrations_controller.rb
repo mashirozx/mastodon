@@ -13,6 +13,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   before_action :set_body_classes, only: [:new, :create, :edit, :update]
   before_action :require_not_suspended!, only: [:update]
   before_action :set_cache_headers, only: [:edit, :update]
+  before_action :check_captcha, only: [:create]
 
   skip_before_action :require_functional!, only: [:edit, :update]
 
@@ -97,6 +98,16 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  # https://github.com/heartcombo/devise/wiki/How-To:-Use-Recaptcha-with-Devise
+  def check_captcha
+    if (ENV['CAPTCHA_ENABLED'] || 'false') == 'true' && !verify_rucaptcha?
+      build_resource(sign_up_params)
+      resource.validate
+      resource.errors.add(:base, 'rucaptcha.invalid')
+      respond_with resource
+    end
+  end
 
   def set_instance_presenter
     @instance_presenter = InstancePresenter.new
