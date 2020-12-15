@@ -130,6 +130,119 @@ class Item extends React.PureComponent {
       }
     }
 
+    if (size === 5) {
+      height = 50;
+      width = 33.3;
+
+      if (index === 4) {
+        width = 66.6;
+      }
+
+      if (index < 3) {
+        bottom = 'auto';
+      } else {
+        top = 'auto';
+      }
+
+      if (index !== 2 && index !== 4) {
+        right = 'auto';
+      }
+
+      if (index !== 0 && index !== 3) {
+        left = 'auto';
+      }
+    }
+
+    if (size === 6) {
+      height = 50;
+      width = 33.3;
+
+      if (index < 3) {
+        bottom = 'auto';
+      } else {
+        top = 'auto';
+      }
+
+      if (index !== 2 && index !== 5) {
+        right = 'auto';
+      }
+
+      if (index !== 0 && index !== 3) {
+        left = 'auto';
+      }
+    }
+
+    if (size === 7) {
+      height = 33.3;
+      width = 33.3;
+
+      if (index === 6) {
+        width = 100;
+      }
+
+      if (index < 6) {
+        bottom = 'auto';
+      }
+
+      if (index > 2) {
+        top = 'auto';
+      }
+
+      if (index !== 2 && index !== 5 && index !== 6) {
+        right = 'auto';
+      }
+
+      if (index !== 0 && index !== 3 && index !== 6) {
+        left = 'auto';
+      }
+    }
+
+    if (size === 8) {
+      height = 33.3;
+      width = 33.3;
+
+      if (index === 7) {
+        width = 66.6;
+      }
+
+      if (index < 6) {
+        bottom = 'auto';
+      }
+
+      if (index > 2) {
+        top = 'auto';
+      }
+
+      if (index !== 2 && index !== 5 && index !== 7) {
+        right = 'auto';
+      }
+
+      if (index !== 0 && index !== 3 && index !== 6) {
+        left = 'auto';
+      }
+    }
+
+    if (size === 9) {
+      height = 33.3;
+      width = 33.3;
+
+      if (index < 6) {
+        bottom = 'auto';
+      }
+
+      if (index > 2) {
+        top = 'auto';
+      }
+
+      if (index !== 2 && index !== 5 && index !== 8) {
+        right = 'auto';
+      }
+
+      if (index !== 0 && index !== 3 && index !== 6) {
+        left = 'auto';
+      }
+    }
+
     let thumbnail = '';
 
     if (attachment.get('type') === 'unknown') {
@@ -329,13 +442,13 @@ class MediaGallery extends React.PureComponent {
       style.height = height;
     }
 
-    const size     = media.take(4).size;
+    const size     = media.take(9).size;
     const uncached = media.every(attachment => attachment.get('type') === 'unknown');
 
     if (standalone && this.isFullSizeEligible()) {
       children = <Item standalone autoplay={autoplay} onClick={this.handleClick} attachment={media.get(0)} displayWidth={width} visible={visible} />;
     } else {
-      children = media.take(4).map((attachment, i) => <Item key={attachment.get('id')} autoplay={autoplay} onClick={this.handleClick} attachment={attachment} index={i} size={size} displayWidth={width} visible={visible || uncached} />);
+      children = media.take(9).map((attachment, i) => <Item key={attachment.get('id')} autoplay={autoplay} onClick={this.handleClick} attachment={attachment} index={i} size={size} displayWidth={width} visible={visible || uncached} />);
     }
 
     if (uncached) {
