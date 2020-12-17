@@ -113,7 +113,6 @@
     "marky": "^1.2.1",
     "mini-css-extract-plugin": "^1.5.0",
     "mkdirp": "^1.0.4",
-    "node-html-parser": "^1.2.20",
     "npmlog": "^4.1.2",
     "object-assign": "^4.1.1",
     "object-fit-images": "^3.2.3",
