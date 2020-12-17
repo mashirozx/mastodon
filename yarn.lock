@@ -5282,11 +5282,6 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-he@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npm.taobao.org/he/download/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
-  integrity sha1-hK5l+n6vsWX922FWauFLrwVmTw8=
-
 hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/hex-color-regex/download/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
@@ -7367,13 +7362,6 @@ node-forge@^0.10.0:
   version "0.10.0"
   resolved "https://registry.npm.taobao.org/node-forge/download/node-forge-0.10.0.tgz#32dea2afb3e9926f02ee5ce8794902691a676bf3"
   integrity sha1-Mt6ir7Ppkm8C7lzoeUkCaRpna/M=
-
-node-html-parser@^1.2.20:
-  version "1.2.21"
-  resolved "https://registry.npm.taobao.org/node-html-parser/download/node-html-parser-1.2.21.tgz#93b074d877007c7148d594968a642cd65d254daa"
-  integrity sha1-k7B02HcAfHFI1ZSWimQs1l0lTao=
-  dependencies:
-    he "1.2.0"
 
 node-int64@^0.4.0:
   version "0.4.0"
