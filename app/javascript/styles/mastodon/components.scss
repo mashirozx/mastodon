@@ -847,7 +847,7 @@
   }
 
   p {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     white-space: pre-wrap;
     unicode-bidi: plaintext;
 
@@ -887,7 +887,7 @@
   a.unhandled-link {
     color: lighten($ui-highlight-color, 8%);
   }
-  
+
   .status__content__show-translation-button,
   +.status__content__read-more-button,
   .status__content__read-more-button,
