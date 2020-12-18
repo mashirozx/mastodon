@@ -158,6 +158,7 @@ en:
         setting_display_media_default: Default
         setting_display_media_hide_all: Hide all
         setting_display_media_show_all: Show all
+        setting_enable_snowfall: Enable snowfall effect
         setting_expand_spoilers: Always expand toots marked with content warnings
         setting_hide_network: Hide your network
         setting_noindex: Opt-out of search engine indexing
