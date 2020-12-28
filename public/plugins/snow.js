@@ -15,7 +15,7 @@
 
     var n = 250 * (screen.width * screen.height) / (1920 * 1080)
 
-    for (var i = 0; i < Math.max(n, 250); i++) {
+    for (var i = 0; i < Math.min(n, 250); i++) {
       var flake = document.createElement("div");
       flake.classList.add("snowflake");
       container.appendChild(flake);
