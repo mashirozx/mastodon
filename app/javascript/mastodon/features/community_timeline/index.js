@@ -129,6 +129,7 @@ class CommunityTimeline extends React.PureComponent {
           emptyMessage={<FormattedMessage id='empty_column.community' defaultMessage='The local timeline is empty. Write something publicly to get the ball rolling!' />}
           shouldUpdateScroll={shouldUpdateScroll}
           bindToDocument={!multiColumn}
+          excludeBot={true}
         />
       </Column>
     );
