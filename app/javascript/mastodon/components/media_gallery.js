@@ -139,17 +139,21 @@ class Item extends React.PureComponent {
       }
 
       if (index < 3) {
-        bottom = 'auto';
+        bottom = '2px';
       } else {
-        top = 'auto';
+        top = '2px';
       }
 
       if (index !== 2 && index !== 4) {
-        right = 'auto';
+        right = '2px';
       }
 
       if (index !== 0 && index !== 3) {
-        left = 'auto';
+        if (index % 3 === 1) {
+          left = '2px';
+        } else {
+          left = '6px';
+        }
       }
     }
 
@@ -158,17 +162,21 @@ class Item extends React.PureComponent {
       width = 33.3;
 
       if (index < 3) {
-        bottom = 'auto';
+        bottom = '2px';
       } else {
-        top = 'auto';
+        top = '2px';
       }
 
       if (index !== 2 && index !== 5) {
-        right = 'auto';
+        right = '2px';
       }
 
       if (index !== 0 && index !== 3) {
-        left = 'auto';
+        if (index % 3 === 1) {
+          left = '2px';
+        } else {
+          left = '6px';
+        }
       }
     }
 
@@ -181,19 +189,27 @@ class Item extends React.PureComponent {
       }
 
       if (index < 6) {
-        bottom = 'auto';
+        bottom = '2px';
       }
 
       if (index > 2) {
-        top = 'auto';
+        if (parseInt(index/3) === 1) {
+          top = '2px';
+        } else {
+          top = '6px';
+        }
       }
 
       if (index !== 2 && index !== 5 && index !== 6) {
-        right = 'auto';
+        right = '2px';
       }
 
       if (index !== 0 && index !== 3 && index !== 6) {
-        left = 'auto';
+        if (index % 3 === 1) {
+          left = '2px';
+        } else {
+          left = '6px';
+        }
       }
     }
 
@@ -206,19 +222,27 @@ class Item extends React.PureComponent {
       }
 
       if (index < 6) {
-        bottom = 'auto';
+        bottom = '2px';
       }
 
       if (index > 2) {
-        top = 'auto';
+        if (parseInt(index/3) === 1) {
+          top = '2px';
+        } else {
+          top = '6px';
+        }
       }
 
       if (index !== 2 && index !== 5 && index !== 7) {
-        right = 'auto';
+        right = '2px';
       }
 
       if (index !== 0 && index !== 3 && index !== 6) {
-        left = 'auto';
+        if (index % 3 === 1) {
+          left = '2px';
+        } else {
+          left = '6px';
+        }
       }
     }
 
@@ -227,19 +251,27 @@ class Item extends React.PureComponent {
       width = 33.3;
 
       if (index < 6) {
-        bottom = 'auto';
+        bottom = '2px';
       }
 
       if (index > 2) {
-        top = 'auto';
+        if (parseInt(index/3) === 1) {
+          top = '2px';
+        } else {
+          top = '6px';
+        }
       }
 
       if (index !== 2 && index !== 5 && index !== 8) {
-        right = 'auto';
+        right = '2px';
       }
 
       if (index !== 0 && index !== 3 && index !== 6) {
-        left = 'auto';
+        if (index % 3 === 1) {
+          left = '2px';
+        } else {
+          left = '6px';
+        }
       }
     }
 
