@@ -233,6 +233,8 @@ export default class StatusContent extends React.PureComponent {
     const hidden = this.props.onExpandedToggle ? !this.props.expanded : this.state.hidden;
     const renderReadMore = this.props.onClick && status.get('collapsed');
     const renderViewThread = this.props.showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']);
+    const renderShowPoll = !!status.get('poll');
+
     const addHashtagMarkup = (html) => {
       let template = document.createElement('template');
       template.innerHTML = `<fragment>${html}<fragment/>`;
@@ -303,6 +305,16 @@ export default class StatusContent extends React.PureComponent {
       </React.Fragment> : null
     );
 
+    const showPollButton = (
+      <button className='status__content__read-more-button' onClick={this.props.onClick} key='show-poll'>
+        <FormattedMessage id='status.show_poll' defaultMessage='Show poll' /><Icon id='angle-right' fixedWidth />
+      </button>
+    );
+
+    const pollContainer = (
+      <PollContainer pollId={status.get('poll')} />
+    );
+
     if (status.get('spoiler_text').length > 0) {
       let mentionsPlaceholder = '';
 
@@ -332,7 +344,7 @@ export default class StatusContent extends React.PureComponent {
 
           {!hidden ? translationContainer : null}
 
-          {!quote && !hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {!hidden && renderShowPoll && quote ? showPollButton : pollContainer}
 
           {renderViewThread && showThreadButton}
         </div>
@@ -344,7 +356,7 @@ export default class StatusContent extends React.PureComponent {
 
           {translationContainer}
 
-          {!quote && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {renderShowPoll && quote ? showPollButton : pollContainer}
 
           {renderViewThread && showThreadButton}
         </div>,
@@ -362,7 +374,7 @@ export default class StatusContent extends React.PureComponent {
 
           {translationContainer}
 
-          {!quote && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {renderShowPoll && quote ? showPollButton : pollContainer}
 
           {renderViewThread && showThreadButton}
         </div>
