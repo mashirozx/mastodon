@@ -216,7 +216,7 @@ class Card extends React.PureComponent {
           <IconButton
             className={'fullscreen-iframe-button'}
             title={intl.formatMessage(messages.fullscreen)}
-            icon={'arrows-alt'}
+            icon={'expand-wide:fad'}
             onClick={this.handleIframeFullscreen}
             size={18}
             style={{
