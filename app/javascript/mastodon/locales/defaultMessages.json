@@ -2726,6 +2726,10 @@
       {
         "defaultMessage": "Sensitive content",
         "id": "status.sensitive_warning"
+      },
+      {
+        "defaultMessage": "Expand to full screen view",
+        "id": "status.fullscreen"
       }
     ],
     "path": "app/javascript/mastodon/features/status/components/card.json"
