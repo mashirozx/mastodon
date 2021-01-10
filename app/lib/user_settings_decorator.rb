@@ -20,6 +20,8 @@ class UserSettingsDecorator
     user.settings['default_privacy']     = default_privacy_preference if change?('setting_default_privacy')
     user.settings['default_sensitive']   = default_sensitive_preference if change?('setting_default_sensitive')
     user.settings['default_language']    = default_language_preference if change?('setting_default_language')
+    user.settings['default_federation']  = default_federation_preference if change?('setting_default_federation')
+    user.settings['default_content_type']= default_content_type_preference if change?('setting_default_content_type')
     user.settings['unfollow_modal']      = unfollow_modal_preference if change?('setting_unfollow_modal')
     user.settings['boost_modal']         = boost_modal_preference if change?('setting_boost_modal')
     user.settings['delete_modal']        = delete_modal_preference if change?('setting_delete_modal')
@@ -28,6 +30,8 @@ class UserSettingsDecorator
     user.settings['expand_spoilers']     = expand_spoilers_preference if change?('setting_expand_spoilers')
     user.settings['reduce_motion']       = reduce_motion_preference if change?('setting_reduce_motion')
     user.settings['disable_swiping']     = disable_swiping_preference if change?('setting_disable_swiping')
+    user.settings['enable_snowfall']     = enable_snowfall if change?('setting_enable_snowfall')
+    user.settings['custom_css']          = custom_css if change?('setting_custom_css')
     user.settings['system_font_ui']      = system_font_ui_preference if change?('setting_system_font_ui')
     user.settings['noindex']             = noindex_preference if change?('setting_noindex')
     user.settings['theme']               = theme_preference if change?('setting_theme')
@@ -55,6 +59,14 @@ class UserSettingsDecorator
 
   def default_sensitive_preference
     boolean_cast_setting 'setting_default_sensitive'
+  end
+
+  def default_federation_preference
+    boolean_cast_setting 'setting_default_federation'
+  end
+
+  def default_content_type_preference
+    settings['setting_default_content_type']
   end
 
   def unfollow_modal_preference
@@ -91,6 +103,14 @@ class UserSettingsDecorator
 
   def disable_swiping_preference
     boolean_cast_setting 'setting_disable_swiping'
+  end
+
+  def enable_snowfall
+    boolean_cast_setting 'setting_enable_snowfall'
+  end
+
+  def custom_css
+    settings['setting_custom_css']
   end
 
   def noindex_preference

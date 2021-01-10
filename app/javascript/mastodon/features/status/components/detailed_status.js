@@ -22,6 +22,7 @@ const messages = defineMessages({
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
   private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
   direct_short: { id: 'privacy.direct.short', defaultMessage: 'Direct' },
+  local_only: { id: 'status.local_only', defaultMessage: 'This post is only visible by other users of your instance' },
 });
 
 export default  @injectIntl
@@ -35,6 +36,8 @@ class DetailedStatus extends ImmutablePureComponent {
     status: ImmutablePropTypes.map,
     onOpenMedia: PropTypes.func.isRequired,
     onOpenVideo: PropTypes.func.isRequired,
+    onOpenMediaQuote: PropTypes.func.isRequired,
+    onOpenVideoQuote: PropTypes.func.isRequired,
     onToggleHidden: PropTypes.func.isRequired,
     measureHeight: PropTypes.bool,
     onHeightChange: PropTypes.func,
@@ -46,6 +49,9 @@ class DetailedStatus extends ImmutablePureComponent {
       available: PropTypes.bool,
     }),
     onToggleMediaVisibility: PropTypes.func,
+    onQuoteToggleHidden: PropTypes.func.isRequired,
+    showQuoteMedia: PropTypes.bool,
+    onToggleQuoteMediaVisibility: PropTypes.func,
   };
 
   state = {
@@ -63,6 +69,10 @@ class DetailedStatus extends ImmutablePureComponent {
 
   handleOpenVideo = (options) => {
     this.props.onOpenVideo(this.props.status.getIn(['media_attachments', 0]), options);
+  }
+
+  handleOpenVideoQuote = (options) => {
+    this.props.onOpenVideoQuote(this.props.status.getIn(['quote', 'media_attachments', 0]), options);
   }
 
   handleExpandedToggle = () => {
@@ -102,6 +112,19 @@ class DetailedStatus extends ImmutablePureComponent {
     window.open(href, 'mastodon-intent', 'width=445,height=600,resizable=no,menubar=no,status=no,scrollbars=yes');
   }
 
+  handleExpandedQuoteToggle = () => {
+    this.props.onQuoteToggleHidden(this.props.status);
+  }
+
+  handleQuoteClick = () => {
+    if (!this.context.router) {
+      return;
+    }
+
+    const { status } = this.props;
+    this.context.router.history.push(`/statuses/${status.getIn(['quote', 'id'])}`);
+  }
+
   render () {
     const status = (this.props.status && this.props.status.get('reblog')) ? this.props.status.get('reblog') : this.props.status;
     const outerStyle = { boxSizing: 'border-box' };
@@ -114,6 +137,7 @@ class DetailedStatus extends ImmutablePureComponent {
     let media           = '';
     let applicationLink = '';
     let reblogLink = '';
+    let localOnly = '';
     let reblogIcon = 'retweet';
     let favouriteLink = '';
 
@@ -121,10 +145,85 @@ class DetailedStatus extends ImmutablePureComponent {
       outerStyle.height = `${this.state.height}px`;
     }
 
-    if (pictureInPicture.get('inUse')) {
-      media = <PictureInPicturePlaceholder />;
-    } else if (status.get('media_attachments').size > 0) {
-      if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
+    let quote = null;
+    if (status.get('quote', null) !== null) {
+      let quote_status = status.get('quote');
+
+      let quote_media = null;
+      if (quote_status.get('media_attachments').size > 0) {
+
+        if (quote_status.getIn(['media_attachments', 0, 'type']) === 'audio') {
+          const attachment = quote_status.getIn(['media_attachments', 0]);
+
+          quote_media = (
+            <Audio
+              src={attachment.get('url')}
+              alt={attachment.get('description')}
+              duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
+              poster={attachment.get('preview_url') || quote_status.getIn(['account', 'avatar_static'])}
+              backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
+              foregroundColor={attachment.getIn(['meta', 'colors', 'foreground'])}
+              accentColor={attachment.getIn(['meta', 'colors', 'accent'])}
+              height={60}
+            />
+          );
+        } else if (quote_status.getIn(['media_attachments', 0, 'type']) === 'video') {
+          const attachment = quote_status.getIn(['media_attachments', 0]);
+
+          quote_media = (
+            <Video
+              preview={attachment.get('preview_url')}
+              frameRate={attachment.getIn(['meta', 'original', 'frame_rate'])}
+              blurhash={attachment.get('blurhash')}
+              src={attachment.get('url')}
+              alt={attachment.get('description')}
+              width={300}
+              height={150}
+              inline
+              onOpenVideo={this.handleOpenVideoQuote}
+              sensitive={quote_status.get('sensitive')}
+              visible={this.props.showQuoteMedia}
+              onToggleVisibility={this.props.onToggleQuoteMediaVisibility}
+              quote
+            />
+          );
+        } else {
+          quote_media = (
+            <MediaGallery
+              standalone
+              sensitive={quote_status.get('sensitive')}
+              media={quote_status.get('media_attachments')}
+              height={300}
+              onOpenMedia={this.props.onOpenMediaQuote}
+              visible={this.props.showQuoteMedia}
+              onToggleVisibility={this.props.onToggleQuoteMediaVisibility}
+              quote
+            />
+          );
+        }
+      } else if (quote_status.get('spoiler_text').length === 0) {
+        quote_media = <Card sensitive={quote_status.get('sensitive')} onOpenMedia={this.props.onOpenMedia} card={quote_status.get('card', null)} />;
+      }
+
+      quote = (
+        <div className='quote-status'>
+          <a href={quote_status.getIn(['account', 'url'])} onClick={this.handleAccountClick} className='detailed-status__display-name'>
+            <div className='detailed-status__display-avatar'><Avatar account={quote_status.get('account')} size={18} /></div>
+            <DisplayName account={quote_status.get('account')} localDomain={this.props.domain} />
+          </a>
+
+          <StatusContent status={quote_status} onClick={this.handleQuoteClick} expanded={!status.get('quote_hidden')} onExpandedToggle={this.handleExpandedQuoteToggle} quote />
+          {quote_media}
+        </div>
+      );
+    }
+
+    if (status.get('media_attachments').size > 0) {
+      if (pictureInPicture.get('inUse')) {
+        media = <PictureInPicturePlaceholder width={this.props.cachedMediaWidth} />;
+      } else if (this.props.muted) {
+        media = <AttachmentList compact media={status.get('media_attachments')} />;
+      } else if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
         const attachment = status.getIn(['media_attachments', 0]);
 
         media = (
@@ -217,6 +316,10 @@ class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
+    if(status.get('local_only')) {
+      localOnly = <span> · <i className='fa fa-chain-broken' title={intl.formatMessage(messages.local_only)} /></span>;
+    }
+
     if (this.context.router) {
       favouriteLink = (
         <Link to={`/statuses/${status.get('id')}/favourites`} className='detailed-status__link'>
@@ -247,12 +350,13 @@ class DetailedStatus extends ImmutablePureComponent {
 
           <StatusContent status={status} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} />
 
+          {quote}
           {media}
 
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
               <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
-            </a>{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
+            </a>{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}{localOnly}
           </div>
         </div>
       </div>

@@ -18,10 +18,11 @@ class Formatter
     end
 
     raw_content = status.text
-
     if options[:inline_poll_options] && status.preloadable_poll
       raw_content = raw_content + "\n\n" + status.preloadable_poll.options.map { |title| "[ ] #{title}" }.join("\n")
     end
+    # raw_content = raw_content + "\n\n" + status.preloadable_poll.options.map { |title| "[ ] #{title}" }.join("\n") if options[:inline_poll_options] && status.preloadable_poll
+    # raw_content = "RT @#{prepend_reblog} #{raw_content}" if prepend_reblog
 
     return '' if raw_content.blank?
 
@@ -31,17 +32,51 @@ class Formatter
       return html.html_safe # rubocop:disable Rails/OutputSafety
     end
 
-    linkable_accounts = status.active_mentions.map(&:account)
-    linkable_accounts << status.account
+    formatter_options = {
+      input: :mastodon,
+      entity_output: :as_input,
+      linkable_accounts: status.active_mentions.map(&:account) + [status.account],
+      custom_emojis: options[:custom_emojify] ? status.emojis : nil,
+      autoplay: options[:autoplay],
+      syntax_highlighter: 'rouge',
+      syntax_highlighter_opts: {
+        guess_lang: true,
+        # line_numbers: true, # useless!
+        # inline_theme: 'base16.light' # do not use this!
+      }
+    }
 
-    html = raw_content
-    html = "RT @#{prepend_reblog} #{html}" if prepend_reblog
-    html = encode_and_link_urls(html, linkable_accounts)
-    html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
-    html = simple_format(html, {}, sanitize: false)
+    case status.content_type
+    when 'text/markdown'
+      raw_content = "RT @#{prepend_reblog} #{raw_content}" if prepend_reblog
+      html = Kramdown::Document.new(raw_content, formatter_options).to_mastodon
+      # html = html.gsub(/<code( class=".|\n*")>(.|\n)*?<\/code>/m) { $~[0].gsub(/[\r\n]/, '<br>') }
+      # html = html.gsub(/<img.*?src="(.*?)".*?\/?>/m) { $~[0].gsub(/(.*?)/, "https://proxy/?url=#{$1}") }
+    else # when 'text/plain'
+      linkable_accounts = status.active_mentions.map(&:account)
+      linkable_accounts << status.account
+
+      html = raw_content
+      html = "RT @#{prepend_reblog} #{html}" if prepend_reblog
+      html = encode_and_link_urls(html, linkable_accounts)
+      html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
+      html = simple_format(html, {}, sanitize: false)
+    end
+
+    html = quotify(html, status) if status.quote? && !options[:escape_quotify]
     html = html.delete("\n")
-
     html.html_safe # rubocop:disable Rails/OutputSafety
+  end
+
+  def format_in_quote(status, **options)
+    html = format(status)
+    return '' if html.empty?
+    doc = Nokogiri::HTML.parse(html, nil, 'utf-8')
+    html = doc.css('body')[0].inner_html
+    html.sub!(/^<p>(.+)<\/p>$/, '\1')
+    html = Sanitize.clean(html).delete("\n").truncate(150)
+    html = encode_custom_emojis(html, status.emojis) if options[:custom_emojify]
+    html.html_safe
   end
 
   def reformat(html)
@@ -192,6 +227,12 @@ class Formatter
   end
   # rubocop:enable Metrics/BlockNesting
 
+  def quotify(html, status)
+    url = ActivityPub::TagManager.instance.url_for(status.quote)
+    link = encode_and_link_urls(url)
+    html.sub(/(<[^>]+>)\z/, "<span class=\"quote-inline\"><br/>QT: #{link}</span>\\1")
+  end
+
   def rewrite(text, entities)
     text = text.to_s
 
@@ -267,8 +308,9 @@ class Formatter
 
   def link_to_mention(entity, linkable_accounts)
     acct = entity[:screen_name]
+    username, domain = acct.split('@')
 
-    return link_to_account(acct) unless linkable_accounts
+    return link_to_account(acct) unless linkable_accounts and domain != "twitter.com"
 
     account = linkable_accounts.find { |item| TagManager.instance.same_acct?(item.acct, acct) }
     account ? mention_html(account) : "@#{encode(acct)}"
@@ -276,6 +318,10 @@ class Formatter
 
   def link_to_account(acct)
     username, domain = acct.split('@')
+
+    if domain == "twitter.com"
+      return mention_twitter_html(username)
+    end
 
     domain  = nil if TagManager.instance.local_domain?(domain)
     account = EntityCache.instance.mention(username, domain)
@@ -299,9 +345,14 @@ class Formatter
 
   def hashtag_html(tag)
     "<a href=\"#{encode(tag_url(tag))}\" class=\"mention hashtag\" rel=\"tag\">#<span>#{encode(tag)}</span></a>"
+    # "<a href=\"#{encode(tag_url(tag))}\" class=\"mention hashtag\" rel=\"tag\"><span class=\"hash_char\">#</span><span>#{encode(tag)}</span></a>"
   end
 
   def mention_html(account)
     "<span class=\"h-card\"><a href=\"#{encode(ActivityPub::TagManager.instance.url_for(account))}\" class=\"u-url mention\">@<span>#{encode(account.username)}</span></a></span>"
+  end
+
+  def mention_twitter_html(username)
+    "<span class=\"h-card\"><a href=\"https://twitter.com/#{username}\" class=\"u-url mention\">@<span>#{username}@twitter.com</span></a></span>"
   end
 end

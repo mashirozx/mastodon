@@ -133,6 +133,7 @@ en:
       header: Header
       inbox_url: Inbox URL
       invite_request_text: Reasons for joining
+      invite_request_time_ago: Created %{time} ago
       invited_by: Invited by
       ip: IP
       joined: Joined
@@ -590,6 +591,9 @@ en:
         deletion:
           desc_html: Allow anyone to delete their account
           title: Open account deletion
+        enable_captcha:
+          desc_html: Use captcha in registration form
+          title: Enable captcha
         min_invite_role:
           disabled: No one
           title: Allow invitations by
@@ -708,6 +712,7 @@ en:
       guide_link_text: Everyone can contribute.
     sensitive_content: Sensitive content
     toot_layout: Toot layout
+    magic_of_mashiro: Magic of Mashiro
   application_mailer:
     notification_preferences: Change e-mail preferences
     salutation: "%{name},"
@@ -752,6 +757,7 @@ en:
     registration_closed: "%{instance} is not accepting new members"
     resend_confirmation: Resend confirmation instructions
     reset_password: Reset password
+    rucaptcha_invalid: Captcha input incorrect, try again!
     security: Security
     set_new_password: Set new password
     setup:
@@ -844,6 +850,7 @@ en:
       title: This page is not correct
     '503': The page could not be served due to a temporary server failure.
     noscript_html: To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the <a href="%{apps_path}">native apps</a> for Mastodon for your platform.
+    login_to_translate: Please login first to get translation.
   existing_username_validator:
     not_found: could not find a local user with that username
     not_found_multiple: could not find %{usernames}
@@ -1206,6 +1213,9 @@ en:
         one: "%{count} video"
         other: "%{count} videos"
     boosted_from_html: Boosted from %{acct_link}
+    content_types:
+      text/markdown: Markdown
+      text/plain: Plain text
     content_warning: 'Content warning: %{warning}'
     disallowed_hashtags:
       one: 'contained a disallowed hashtag: %{tags}'
@@ -1213,6 +1223,7 @@ en:
     errors:
       in_reply_not_found: The status you are trying to reply to does not appear to exist.
     language_detection: Automatically detect language
+    local_only: Local-only
     open_in_web: Open in web
     over_character_limit: character limit of %{max} exceeded
     pin_errors:
@@ -1331,9 +1342,38 @@ en:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
-    contrast: Mastodon (High contrast)
-    default: Mastodon (Dark)
-    mastodon-light: Mastodon (Light)
+    bilibili-light: Bilibili
+    contrast: Mastodon (Dark-Blue)
+    cybre-light: Cybre Light
+    dark-cyan: Mastodon (Dark-Cyan)
+    dark-green: Mastodon (Dark-Green)
+    dark-orange: Mastodon (Dark-Orange)
+    dark-pink: Mastodon (Dark-Pink)
+    dark-purple: Mastodon (Dark-Purple)
+    dark-red: Mastodon (Dark-Red)
+    dark-yellow: Mastodon (Dark-Yellow)
+    default: Mastodon (Default)
+    forest: Forest
+    light-cyan: Mastodon (Light-Cyan)
+    light-green: Mastodon (Light-Green)
+    light-orange: Mastodon (Light-Orange)
+    light-pink: Mastodon (Light-Pink)
+    light-purple: Mastodon (Light-Purple)
+    light-red: Mastodon (Light-Red)
+    light-yellow: Mastodon (Light-Yellow)
+    luxury: Luxury
+    mastodon-light: Mastodon (Light-Blue)
+    new-year: New Year
+    nga: NGA Style
+    sakura: Sakura
+    sleeping-town: Sleeping Town
+    strawberry: Strawberry
+    transparent-aurora: Aurora (Transparent)
+    transparent-forest-trace: Forest Trace (Transparent)
+    transparent-starry-sky: Starry Sky (Transparent)
+    ubuntu-light: Ubuntu Orange
+    ubuntu-terminal: Ubuntu Terminal
+    witches-town: Witches Town
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

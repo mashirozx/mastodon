@@ -467,12 +467,12 @@ ActiveRecord::Schema.define(version: 2020_12_18_054746) do
   end
 
   create_table "ip_blocks", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "expires_at"
     t.inet "ip", default: "0.0.0.0", null: false
     t.integer "severity", default: 0, null: false
+    t.datetime "expires_at"
     t.text "comment", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "list_accounts", force: :cascade do |t|
@@ -805,11 +805,15 @@ ActiveRecord::Schema.define(version: 2020_12_18_054746) do
     t.bigint "in_reply_to_account_id"
     t.bigint "poll_id"
     t.datetime "deleted_at"
+    t.boolean "local_only"
+    t.string "content_type"
+    t.bigint "quote_id"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20190820", order: { id: :desc }, where: "(deleted_at IS NULL)"
     t.index ["id", "account_id"], name: "index_statuses_local_20190824", order: { id: :desc }, where: "((local OR (uri IS NULL)) AND (deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
     t.index ["id", "account_id"], name: "index_statuses_public_20200119", order: { id: :desc }, where: "((deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
     t.index ["in_reply_to_account_id"], name: "index_statuses_on_in_reply_to_account_id"
     t.index ["in_reply_to_id"], name: "index_statuses_on_in_reply_to_id"
+    t.index ["quote_id"], name: "index_statuses_on_quote_id"
     t.index ["reblog_of_id", "account_id"], name: "index_statuses_on_reblog_of_id_and_account_id"
     t.index ["uri"], name: "index_statuses_on_uri", unique: true
   end

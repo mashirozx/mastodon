@@ -164,6 +164,14 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
+  onQuoteToggleHidden (status) {
+    if (status.get('quote_hidden')) {
+      dispatch(revealQuote(status.get('id')));
+    } else {
+      dispatch(hideQuote(status.get('id')));
+    }
+  },
+
 });
 
 export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(DetailedStatus));

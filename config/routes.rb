@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   get 'manifest', to: 'manifests#show', defaults: { format: 'json' }
   get 'intent', to: 'intents#show'
-  get 'custom.css', to: 'custom_css#show', as: :custom_css
+  get 'custom-css/:sha/custom.css', to: 'custom_css#show', as: :custom_css
 
   resource :instance_actor, path: 'actor', only: [:show] do
     resource :inbox, only: [:create], module: :activitypub
@@ -60,6 +60,8 @@ Rails.application.routes.draw do
 
   get '/users/:username', to: redirect('/@%{username}'), constraints: lambda { |req| req.format.nil? || req.format.html? }
   get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
+
+  post '/translate', to: 'translate#create'
 
   resources :accounts, path: 'users', only: [:show], param: :username do
     get :remote_follow,  to: 'remote_follow#new'
@@ -520,6 +522,7 @@ Rails.application.routes.draw do
   get '/about',        to: 'about#show'
   get '/about/more',   to: 'about#more'
   get '/terms',        to: 'about#terms'
+  get '/apps',        to: 'about#apps'
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false

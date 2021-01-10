@@ -31,6 +31,8 @@ class Sanitize
         next true if e =~ /^(h|p|u|dt|e)-/ # microformats classes
         next true if e =~ /^(mention|hashtag)$/ # semantic classes
         next true if e =~ /^(ellipsis|invisible)$/ # link formatting classes
+        next true if e =~ /^quote-inline$/ # quote inline classes
+        next true if e =~ /(ge|gs|o|ow|c|cm|cp|c1|cs|n|py|nl|ni|nb|bp|nf|na|nx|nc|nn|no|ne|nd|nt|kn|k|kc|kd|kp|kr|kt|nv|vg|vc|vi|m|il|mf|mh|mi|mo|s|sr|s2|sb|sh|sx|s1|ss|se|si|sc|sd|l|ld|p|w|err|gp|gi|gd|gh|gu|hll|lineno|highlight)/ # ruby-rouge classes
       end
 
       node['class'] = class_list.join(' ')
@@ -53,7 +55,7 @@ class Sanitize
     end
 
     UNSUPPORTED_ELEMENTS_TRANSFORMER = lambda do |env|
-      return unless %w(h1 h2 h3 h4 h5 h6 blockquote pre ul ol li).include?(env[:node_name])
+      return unless %w(h1 h2 h3 h4 h5 h6 ul ol li).include?(env[:node_name])
 
       current_node = env[:node]
 
@@ -71,7 +73,7 @@ class Sanitize
     end
 
     MASTODON_STRICT ||= freeze_config(
-      elements: %w(p br span a),
+      elements: %w(p br span a em i  strong b code del s blockquote pre code),
 
       attributes: {
         'a'    => %w(href rel class),
@@ -83,6 +85,9 @@ class Sanitize
           'rel' => 'nofollow noopener noreferrer',
           'target' => '_blank',
         },
+        'pre' => {
+          'class' => 'highlight'
+        }
       },
 
       protocols: {},

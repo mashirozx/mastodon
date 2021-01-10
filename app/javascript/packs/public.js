@@ -53,6 +53,17 @@ function main() {
   };
 
   ready(() => {
+    [].forEach.call(document.querySelectorAll('img.rucaptcha-image'), (content) => {
+      content.addEventListener('click', e => {
+        content.src = '/rucaptcha/?t=' + Date.now();
+      });
+    });
+
+    [].forEach.call(document.querySelectorAll('iframe.custom-full-width-iframe'), (content) => {
+      content.width = '100%';
+      content.height = content.offsetWidth * content.getAttribute('data-height') / content.getAttribute('data-width');
+    });
+
     const locale = document.documentElement.lang;
 
     const dateTimeFormat = new Intl.DateTimeFormat(locale, {
@@ -279,6 +290,29 @@ function main() {
     } else {
       target.style.display = 'block';
     }
+  });
+
+  delegate(document, '.quote-status', 'click', ({ target }) => {
+    if (target.closest('.status__content__spoiler-link') ||
+      target.closest('.media-gallery') ||
+      target.closest('.video-player') ||
+      target.closest('.audio-player')) {
+      return false;
+    }
+
+    let url = target.closest('.quote-status').getAttribute('dataurl');
+    if (target.closest('.status__display-name')) {
+      url = target.closest('.status__display-name').getAttribute('href');
+    } else if (target.closest('.status-card')) {
+      url = target.closest('.status-card').getAttribute('href');
+    }
+
+    if (window.location.hostname === url.split('/')[2].split(':')[0]) {
+      window.location.href = url;
+    } else {
+      window.open(url, 'blank');
+    }
+    return false;
   });
 
   // Empty the honeypot fields in JS in case something like an extension

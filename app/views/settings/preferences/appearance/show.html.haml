@@ -32,6 +32,7 @@
     = f.input :setting_reduce_motion, as: :boolean, wrapper: :with_label
     = f.input :setting_disable_swiping, as: :boolean, wrapper: :with_label
     = f.input :setting_system_font_ui, as: :boolean, wrapper: :with_label
+    = f.input :setting_enable_snowfall, as: :boolean, wrapper: :with_label
 
   %h4= t 'appearance.toot_layout'
 
@@ -60,6 +61,13 @@
 
   .fields-group
     = f.input :setting_expand_spoilers, as: :boolean, wrapper: :with_label
+
+  %h4
+    = t 'appearance.magic_of_mashiro'
+    %i.fad.fa-cauldron.fa-fw
+
+  .fields-group
+    = f.input :setting_custom_css, wrapper: :with_block_label, as: :text, input_html: { rows: 8 }, label: t('admin.settings.custom_css.title'), hint: t('admin.settings.custom_css.desc_html')
 
   .actions
     = f.button :button, t('generic.save_changes'), type: :submit

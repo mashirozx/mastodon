@@ -19,11 +19,14 @@ class PublicFeed < Feed
   # @param [Integer] min_id
   # @return [Array<Status>]
   def get(limit, max_id = nil, since_id = nil, min_id = nil)
+    return [] if account_is_bot?
+
     scope = public_scope
 
     scope.merge!(without_replies_scope) unless with_replies?
     scope.merge!(without_reblogs_scope) unless with_reblogs?
     scope.merge!(local_only_scope) if local_only?
+    scope.merge!(without_bots_scope) if local_only?
     scope.merge!(remote_only_scope) if remote_only?
     scope.merge!(account_filters_scope) if account?
     scope.merge!(media_only_scope) if media_only?
@@ -32,6 +35,10 @@ class PublicFeed < Feed
   end
 
   private
+
+  def account_is_bot?
+    @account.bot?
+  end
 
   def with_reblogs?
     @options[:with_reblogs]
@@ -67,6 +74,10 @@ class PublicFeed < Feed
 
   def remote_only_scope
     Status.remote
+  end
+
+  def without_bots_scope
+    Status.excluding_bots_accounts
   end
 
   def without_replies_scope

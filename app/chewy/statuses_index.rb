@@ -16,9 +16,18 @@ class StatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
+    char_filter: {
+      tsconvert: {
+        type: 'stconvert',
+        keep_both: false,
+        delimiter: '#',
+        convert_type: 't2s',
+      },
+    },
     analyzer: {
       content: {
-        tokenizer: 'uax_url_email',
+        #tokenizer: 'uax_url_email',
+        tokenizer: 'ik_max_word',
         filter: %w(
           english_possessive_stemmer
           lowercase
@@ -27,11 +36,12 @@ class StatusesIndex < Chewy::Index
           english_stop
           english_stemmer
         ),
+        char_filter: %w(tsconvert),
       },
     },
   }
 
-  define_type ::Status.unscoped.kept.without_reblogs.includes(:media_attachments, :preloadable_poll) do
+  define_type ::Status.unscoped.kept.without_reblogs.excluding_bots_accounts.includes(:media_attachments, :preloadable_poll) do
     crutch :mentions do |collection|
       data = ::Mention.where(status_id: collection.map(&:id)).where(account: Account.local, silent: false).pluck(:status_id, :account_id)
       data.each.with_object({}) { |(id, name), result| (result[id] ||= []).push(name) }
