@@ -414,6 +414,7 @@
   "status.embed": "Embed",
   "status.favourite": "Favourite",
   "status.filtered": "Filtered",
+  "status.fullscreen": "Expand to full screen view",
   "status.hide_translation": "Hide translation",
   "status.load_more": "Load more",
   "status.local_only": "This post is only visible by other users of your instance",
