@@ -798,7 +798,7 @@ DEPENDENCIES
   sidekiq (~> 6.2)
   sidekiq-bulk (~> 0.2.0)
   sidekiq-scheduler (~> 3.0)
-  sidekiq-statistic (~> 1.4)
+  sidekiq-statistic
   sidekiq-unique-jobs (~> 7.0)
   simple-navigation (~> 4.3)
   simple_form (~> 5.1)
