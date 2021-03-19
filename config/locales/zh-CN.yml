@@ -23,7 +23,7 @@ zh-CN:
     hosted_on: 一个在 %{domain} 上运行的 Mastodon 实例
     instance_actor_flash: '这个账号是个虚拟帐号，不代表任何用户，只用来代表服务器本身。它用于和其它服务器互通，所以不应该被封禁，除非你想封禁整个实例。但是想封禁整个实例的时候，你应该用域名封禁。
 
-'
+      '
     learn_more: 了解详情
     privacy_policy: 隐私政策
     see_whats_happening: 看一看现在在发生什么
@@ -837,8 +837,8 @@ zh-CN:
       content: 抱歉，我们的后台出错了。
       title: 这个页面有问题
     '503': 服务暂时不可用，无法请求该页面。
-    noscript_html: 使用 Mastodon 网页版应用需要启用 JavaScript。你也可以选择适用于你的平台的 <a href="%{apps_path}">Mastodon 应用</a>。
     login_to_translate: 请先登录以使用翻译功能。
+    noscript_html: 使用 Mastodon 网页版应用需要启用 JavaScript。你也可以选择适用于你的平台的 <a href="%{apps_path}">Mastodon 应用</a>。
   existing_username_validator:
     not_found: 在本站找不到此用户
     not_found_multiple: 找不到 %{usernames}
