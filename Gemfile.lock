@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/huacnlee/rucaptcha
+  revision: 3e8361a06521c45811d1487cceb41dc524ab9b69
+  ref: 3e8361a06521c45811d1487cceb41dc524ab9b69
+  branch: main
+  specs:
+    rucaptcha (2.5.5)
+      railties (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -554,8 +563,6 @@ GEM
     ruby-saml (1.11.0)
       nokogiri (>= 1.5.10)
     ruby2_keywords (0.0.4)
-    rucaptcha (2.5.3)
-      railties (>= 3.2)
     rufus-scheduler (3.6.0)
       fugit (~> 1.1, >= 1.1.6)
     safety_net_attestation (0.4.0)
@@ -793,7 +800,7 @@ DEPENDENCIES
   rubocop (~> 1.12)
   rubocop-rails (~> 2.9)
   ruby-progressbar (~> 1.11)
-  rucaptcha (~> 2.5.3)
+  rucaptcha!
   sanitize (~> 5.2)
   scenic (~> 1.5)
   sidekiq (~> 6.2)
