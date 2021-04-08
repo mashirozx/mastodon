@@ -69,7 +69,7 @@
     "@babel/runtime": "^7.13.10",
     "@gamestdio/websocket": "^0.3.2",
     "@github/webauthn-json": "^0.5.7",
-    "@moezx/fontawesome-pro": "https://gitee.com/mashirozx/Font-Awesome.git",
+    "@moezx/fontawesome-pro": "https://github.com/moezx/Font-Awesome.git",
     "@rails/ujs": "^6.1.3",
     "array-includes": "^3.1.3",
     "arrow-key-navigation": "^1.2.0",
