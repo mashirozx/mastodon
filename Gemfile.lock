@@ -784,7 +784,7 @@ DEPENDENCIES
   redis (~> 4.2)
   redis-namespace (~> 1.8)
   resolv (~> 0.1.0)
-  rouge (~> 3.26)
+  rouge (~> 3.21)
   rqrcode (~> 2.0)
   rspec-rails (~> 5.0)
   rspec-sidekiq (~> 3.1)
@@ -817,3 +817,9 @@ DEPENDENCIES
   webpacker (~> 5.3)
   webpush (~> 0.3)
   xorcist (~> 1.1)
+
+RUBY VERSION
+   ruby 2.7.2p137
+
+BUNDLED WITH
+   2.1.4
